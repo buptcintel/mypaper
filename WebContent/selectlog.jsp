@@ -18,6 +18,9 @@
   	  	<div id="allmap" style="width: 100%; height: 100%;"></div>
   	</div>
   	<div region="east" style="width:30%; margin-top: 5px;">
+  		<div align="center" style="margin-top: 5px;">
+	  		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" style="width:150px;" onclick="freshmap()">恢复地图</a>
+	  	</div>
   		<div style="width: 98%;height: 45%;margin-left: 5px;margin-top: 5px;">
   			<table id="selectwh" class="easyui-datagrid"></table>
   		</div>

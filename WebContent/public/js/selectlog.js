@@ -2,6 +2,12 @@
  * 
  */
 $(document).ready(function(){	
+	
+	initwhtable();
+	initlogparktable();
+})
+
+function initwhtable(){
 	//初始化物资表
 	var IsCheckFlag = true; //标示是否是勾选复选框选中行的，true - 是 , false - 否
 	$('#selectwh').datagrid({
@@ -17,13 +23,20 @@ $(document).ready(function(){
 		singleSelect:false,
 		loadMsg:'数据加载中......',
 		columns:[[
-		{field:'wname',title:'仓储名称',width:'60%',align:'center'},
-		{field:'type',title:'类型',width:'20%',align:'center'},
+		{field:'wname',title:'仓储名称',width:'62%',align:'center'},
+		//{field:'type',title:'类型',width:'20%',align:'center'},
+		{field:'select',title: '选择物流',align: 'center',width:'17%',  
+            //添加超级链 
+            formatter:function(value,rowData,rowIndex){
+                //function里面的三个参数代表当前字段值，当前行数据对象，行号（行号从0开始
+                return "<a href='javacript:void(0);' onclick='select("+ "\""+rowData.wid+ "\""+", " + "\""+rowData.coordinate+ "\""+");'>选择</a>";
+           }  
+        },
 		{field:'detail',title: '出救物资',align: 'center',width:'17%',  
             //添加超级链 
             formatter:function(value,rowData,rowIndex){
                 //function里面的三个参数代表当前字段值，当前行数据对象，行号（行号从0开始
-                return "<a href='javacript:void(0);' onclick='showgoods("+ "\""+rowData.wid+ "\""+", " + "\""+rowData.type+ "\""+");'>查看</a>";
+                return "<a href='javacript:void(0);' onclick='showgoods("+rowData.wid+");'>查看</a>";
            }  
         }
 		]],
@@ -54,7 +67,7 @@ $(document).ready(function(){
 	            content = content + "详细地址：" + data.all[i].location + "</br>"; 
 	            content = content + "联系人：" + data.all[i].contact + "</br>"; 
 	            content = content + "联系方式：" + data.all[i].number + "</br>"; 
-	            content = content + "<a href='javacript:void(0);' onclick='showgoods("+ "\""+data.all[i].wid+ "\""+", "+ "\""+data.all[i].type+ "\""+");'>查看出救物资</a>";
+	            content = content + "<a href='javacript:void(0);' onclick='showgoods("+data.all[i].wid+");'>查看出救物资</a>";
 	            content += "</div>";
 	            
 	            createMarker(point,content);
@@ -66,6 +79,10 @@ $(document).ready(function(){
     $(p).pagination({  
         displayMsg: '共 {total} 条记录',  
     });
+	
+}
+
+function initlogparktable(){
 	
 	//初始化物流公司表
     var IsCheckFlag2 = true; //标示是否是勾选复选框选中行的，true - 是 , false - 否
@@ -120,7 +137,7 @@ $(document).ready(function(){
         displayMsg: '共 {total} 条记录',  
     });
 	
-})
+}
 
 function createMarker(point,content,flag){
 	var myIcon = new BMap.Icon("/mypaper/img/warehouse_select.png", new BMap.Size(32, 32), {    //仓库
@@ -150,6 +167,42 @@ function showgoods(wid, wtype){
 			height:400
 		};
 	$("#showgoods").window(options);
+}
+
+function select(wid, wcoordinate){
+	var result = wcoordinate.split(",");
+	var point = new BMap.Point(result[0], result[1]);
+	map.centerAndZoom(point, 14);
+	
+	$.ajax({  
+        type: "POST",  
+        url: "/mypaper/logpark/list",
+        data: {"wid":wid, "page":1, "rows":1000},	//page和rows随意赋值，不影响  
+        success: function(data){  
+        	for(var i = 0 ; i < data.rows.length ; i++){
+	        	var coordinate = data.rows[i].p_coordinate.split(",");
+	        	var myIcon = new BMap.Icon("/mypaper/img/logpark.png",{    //仓库
+	        		imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
+	        	  });
+	        	var point = new BMap.Point(coordinate[0], coordinate[1]);
+	        	var pointMarker = new BMap.Marker(point, {icon:myIcon});
+	        	map.addOverlay(pointMarker);
+        	}
+        },  
+        error: function(data){  
+            alert("系统异常，请刷新后重试...");  
+        }  
+    });
+}
+
+function freshmap(){
+	map.clearOverlays();
+	var point = new BMap.Point(103.048991,30.016365);
+	map.centerAndZoom(point, 7);
+	var marker = new BMap.Marker(point);  // 创建标注
+	map.addOverlay(marker);               // 将标注添加到地图中
+	marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+	initwhtable();
 }
 
 function showvehicle(lid){

@@ -202,20 +202,14 @@ function showwhinfo(wid){
 }
 
 function showwhmap(wid, wcoordinate){
-	//map.clearOverlays();
 	var result = wcoordinate.split(",");
 	var point = new BMap.Point(result[0], result[1]);
 	map.centerAndZoom(point, 14);
-//	var myIcon = new BMap.Icon("/mypaper/img/warehouse_select.png", new BMap.Size(32, 32), {    //仓库
-//		imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
-//	  });
-//	var pointMarker = new BMap.Marker(point, {icon:myIcon});
-//	map.addOverlay(pointMarker);
 	
 	$.ajax({  
         type: "POST",  
         url: "/mypaper/whlogpark/findlogbywh",
-        data: {"wid":wid, "page":1, "rows":10},	//page和rows随意赋值，不影响  
+        data: {"wid":wid, "page":1, "rows":1000},	//page和rows随意赋值，不影响  
         success: function(data){  
         	for(var i = 0 ; i < data.all.length ; i++){
 	        	var coordinate = data.all[i].logpark.p_coordinate.split(",");
