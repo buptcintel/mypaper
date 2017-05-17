@@ -6,6 +6,8 @@ public class Vehicle {
 	private String v_name;
 	private int v_power;
 	private int v_cost;
+	private String v_unit;
+	private String v_type;
 	
 	public String getVid() {
 		return vid;
@@ -31,10 +33,22 @@ public class Vehicle {
 	public void setV_cost(int v_cost) {
 		this.v_cost = v_cost;
 	}
+	public String getV_unit() {
+		return v_unit;
+	}
+	public void setV_unit(String v_unit) {
+		this.v_unit = v_unit;
+	}
+	public String getV_type() {
+		return v_type;
+	}
+	public void setV_type(String v_type) {
+		this.v_type = v_type;
+	}
 	
 	@Override
 	public String toString() {
-		return "Vehicle [vid=" + vid + ", v_name=" + v_name + ", v_power=" + v_power + ", v_cost=" + v_cost + "]";
+		return "Vehicle [vid=" + vid + ", v_name=" + v_name + ", v_power=" + v_power + ", v_cost=" + v_cost
+				+ ", v_unit=" + v_unit + ", v_type=" + v_type + "]";
 	}
-	
 }

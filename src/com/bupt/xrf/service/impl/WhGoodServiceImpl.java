@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import com.bupt.xrf.dao.IWhGoodDao;
 import com.bupt.xrf.entity.WhGood;
 import com.bupt.xrf.service.IWhGoodService;
-import com.bupt.xrf.util.DistanceUtil;
 
 @Service("whgoodService")
 public class WhGoodServiceImpl implements IWhGoodService {
@@ -19,11 +18,8 @@ public class WhGoodServiceImpl implements IWhGoodService {
 	@Autowired
 	private IWhGoodDao whgoodDao;
 	
-	private DistanceUtil distanceUtil = new DistanceUtil();
-	
 	@Override
-	public Map<String, Object> findbypage(int page, int rows, String wid) {
-		
+	public Map<String, Object> findbypage(int page, int rows, String wid) {	
 		Map<String, Object> result = new HashMap<String, Object>();
 		List<Map<String, Object>> res = new ArrayList<Map<String, Object>>();
 		List<WhGood> whGoods = whgoodDao.findbypage(page, rows, wid);

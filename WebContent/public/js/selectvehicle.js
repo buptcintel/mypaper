@@ -33,7 +33,7 @@ $(document).ready(function(){
 			lastIndex = rowIndex;
 			$("#vhtable").datagrid('beginEdit',rowIndex);
 			document.onkeydown=function(){
-				if (event.keyCode == 13){
+				if (event.keyCode == 13){//空格键确认，否则无效
 					$("#vhtable").datagrid('endEdit',rowIndex);
 					updatevpgrid(rowData.pvid, rowData.vid, rowData.useamount);
 				}

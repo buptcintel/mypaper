@@ -4,8 +4,8 @@
 <mapper namespace="parkvehicleModule">
 	<resultMap id="ParkVehicleResultMap" type="com.bupt.xrf.entity.ParkVehicle">
 		<id column="pvid" property="pvid" jdbcType="VARCHAR" />
-		<result column="vamount" property="amount" jdbcType="INTEGER" />
-		<result column="useamount" property="usecount" jdbcType="INTEGER" />
+		<result column="vamount" property="vamount" jdbcType="INTEGER" />
+		<result column="useamount" property="useamount" jdbcType="INTEGER" />
 		<result column="ifuse" property="ifuse" jdbcType="VARCHAR" />
 		<association property="logpark" javaType="com.bupt.xrf.entity.Logpark" column="pid">
 			<id column="pid" property="pid" jdbcType="VARCHAR" />
@@ -23,6 +23,8 @@
 			<result column="v_name" property="v_name" jdbcType="VARCHAR" />
 			<result column="v_power" property="v_power" jdbcType="INTEGER" />
 			<result column="v_cost" property="v_cost" jdbcType="INTEGER" />
+			<result column="v_unit" property="v_unit" jdbcType="VARCHAR" />
+			<result column="v_type" property="v_type" jdbcType="VARCHAR" />
 		</association>
 	</resultMap>
 	
