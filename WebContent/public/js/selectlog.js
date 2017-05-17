@@ -70,7 +70,7 @@ function initwhtable(){
 	            content = content + "<a href='javacript:void(0);' onclick='showgoods("+data.all[i].wid+");'>查看出救物资</a>";
 	            content += "</div>";
 	            
-	            createMarker(point,content);
+	            createMarker(point,content,'wh');
 			}
 		}
 	});
@@ -140,13 +140,24 @@ function initlogparktable(){
 }
 
 function createMarker(point,content,flag){
-	var myIcon = new BMap.Icon("/mypaper/img/warehouse_select.png", new BMap.Size(32, 32), {    //仓库
-		imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
-	  });
+	var myIcon;
+	var title;
+	if(flag == 'wh'){
+		var myIcon = new BMap.Icon("/mypaper/img/warehouse_select.png", new BMap.Size(32, 32), {    //仓库
+			imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
+		  });
+		title = "仓储详细信息";
+	}
+	if(flag == 'lp'){
+		var myIcon = new BMap.Icon("/mypaper/img/logpark.png", new BMap.Size(32, 32), {    //仓库
+			imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
+		  });
+		title = "仓储详细信息";
+	}
 	var opts = {
 			  width : 400,     // 信息窗口宽度
 			  height: 120,     // 信息窗口高度
-			  title : "仓储详细信息" 	// 信息窗口标题
+			  title : title 	// 信息窗口标题
 			}
 	var pointMarker = new BMap.Marker(point, {icon:myIcon});
 	map.addOverlay(pointMarker);
@@ -181,12 +192,17 @@ function select(wid, wcoordinate){
         success: function(data){  
         	for(var i = 0 ; i < data.rows.length ; i++){
 	        	var coordinate = data.rows[i].p_coordinate.split(",");
-	        	var myIcon = new BMap.Icon("/mypaper/img/logpark.png",{    //仓库
-	        		imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
-	        	  });
 	        	var point = new BMap.Point(coordinate[0], coordinate[1]);
-	        	var pointMarker = new BMap.Marker(point, {icon:myIcon});
-	        	map.addOverlay(pointMarker);
+	        	
+	        	var content = "<div>";  
+	            content = content + "名称：" + data.rows[i].p_name +"</br>";  
+	            content = content + "详细地址：" + data.rows[i].p_location + "</br>"; 
+	            content = content + "联系人：" + data.rows[i].p_master + "</br>"; 
+	            content = content + "联系方式：" + data.rows[i].p_contact + "</br>"; 
+	            content = content + "<a href='javacript:void(0);' onclick='showvehicle("+data.rows[i].pid+");'>查看详细信息</a>";
+	            content += "</div>";
+	            
+	        	createMarker(point, content, 'lp');
         	}
         },  
         error: function(data){  
@@ -205,8 +221,8 @@ function freshmap(){
 	initwhtable();
 }
 
-function showvehicle(lid){
-	alert(lid);
+function showvehicle(pid){
+	alert(pid);
 }
 
 function reset(){
