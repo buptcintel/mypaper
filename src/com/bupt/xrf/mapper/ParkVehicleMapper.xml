@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="parkvehicleModule">
+	<resultMap id="ParkVehicleResultMap" type="com.bupt.xrf.entity.ParkVehicle">
+		<id column="pvid" property="pvid" jdbcType="VARCHAR" />
+		<result column="vamount" property="amount" jdbcType="INTEGER" />
+		<result column="useamount" property="usecount" jdbcType="INTEGER" />
+		<result column="ifuse" property="ifuse" jdbcType="VARCHAR" />
+		<association property="logpark" javaType="com.bupt.xrf.entity.Logpark" column="pid">
+			<id column="pid" property="pid" jdbcType="VARCHAR" />
+			<result column="p_name" property="p_name" jdbcType="VARCHAR" />
+			<result column="p_coordinate" property="p_coordinate" jdbcType="VARCHAR" />
+			<result column="p_location" property="p_location" jdbcType="VARCHAR" />
+			<result column="p_master" property="p_master" jdbcType="VARCHAR" />
+			<result column="p_contact" property="p_contact" jdbcType="VARCHAR" />
+			<result column="flag" property="flag" jdbcType="VARCHAR" />
+			<result column="p_power" property="p_power" jdbcType="INTEGER" />
+			<result column="totaluse" property="totaluse" jdbcType="INTEGER" />
+		</association>
+		<association property="vehicle" javaType="com.bupt.xrf.entity.Vehicle" column="vid">
+			<id column="vid" property="vid" jdbcType="VARCHAR" />
+			<result column="v_name" property="v_name" jdbcType="VARCHAR" />
+			<result column="v_power" property="v_power" jdbcType="INTEGER" />
+			<result column="v_cost" property="v_cost" jdbcType="INTEGER" />
+		</association>
+	</resultMap>
+	
+	<select id="findvehiclebypk" resultMap="ParkVehicleResultMap">
+		select * from park_vehicle pv LEFT JOIN logpark p
+			on pv.pid = p.pid
+			LEFT JOIN vehicle v
+			on pv.vid = v.vid
+			where pv.pid = #{pid};
+	</select>
+	
+	<select id="countfindvehiclebypk" resultType="int">
+		select count(*) from park_vehicle where pid = #{pid};
+	</select>
+	
+</mapper>

@@ -40,7 +40,7 @@ $(document).ready(function(){
 		{field:'ck',checkbox:true,width:'5%'},
 		{field:'gname',title:'物资名称',width:'14%',align:'center'},
 		{field:'code',title:'物资编号',width:'17%',align:'center'},
-		{field:'kind',title:'物资类型',width:'19%',align:'center'},
+		{field:'kind',title:'物资类型',width:'18%',align:'center'},
 		{field:'amount',title:amount,width:'15%',align:'center'},
 		{field:'usecount',title:'出救量',width:'15%',align:'center',editor: { type: 'text'}},
 		{field:'weight',title:'单位重量',width:'15%',align:'center'},

@@ -36,6 +36,7 @@
   	</div>
   	
   	<div id="showgoods" modal="true" shadow="false" minimizable="false" cache="false" maximizable="false" collapsible="false" resizable="false"  style="margin: 0px;padding: 0px;overflow: auto;"></div>
+  	<div id="selectvehicle" modal="true" shadow="false" minimizable="false" cache="false" maximizable="false" collapsible="false" resizable="false"  style="margin: 0px;padding: 0px;overflow: auto;"></div>
 </body>
 </html>
 

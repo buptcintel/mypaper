@@ -24,7 +24,7 @@ $(document).ready(function(){
 		columns:[[
 		{field:'gname',title:'物资名称',width:'15%',align:'center'},
 		{field:'code',title:'物资编号',width:'18%',align:'center'},
-		{field:'kind',title:'物资类型',width:'20%',align:'center'},
+		{field:'kind',title:'物资类型',width:'18%',align:'center'},
 		{field:'amount',title:'存储量',width:'16%',align:'center'},
 		{field:'usecount',title:'出救量',width:'16%',align:'center'},
 		{field:'weight',title:'单位重量',width:'15%',align:'center'},

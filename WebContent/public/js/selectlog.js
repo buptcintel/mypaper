@@ -106,13 +106,13 @@ function initlogparktable(){
             //添加超级链 
             formatter:function(value,rowData,rowIndex){
                 //function里面的三个参数代表当前字段值，当前行数据对象，行号（行号从0开始
-                return "<a href='javacript:void(0);' onclick='showvehicle(" +rowData.pid+ ");'>查看</a>";
+                return "<a href='javacript:void(0);' onclick='selectvehicle(" +rowData.pid+ ");'>查看</a>";
            }  
         }
 		]],
 		
 		onClickRow : function(index, row){
-			showvehicles(row.lid);
+			selectvehicle(row.pid);
 		},
 		//以下三个函数是控制 单击一行但不选中checkbox，注意，IsCheckFlag在上方定义
 		onClickCell: function (rowIndex, field, value) {
@@ -168,7 +168,7 @@ function createMarker(point,content,flag){
 }
 
 var staticwid;
-function showgoods(wid, wtype){
+function showgoods(wid){
 	staticwid = wid;
 	var url = "showgoods.jsp";
 	var options = {
@@ -199,7 +199,7 @@ function select(wid, wcoordinate){
 	            content = content + "详细地址：" + data.rows[i].p_location + "</br>"; 
 	            content = content + "联系人：" + data.rows[i].p_master + "</br>"; 
 	            content = content + "联系方式：" + data.rows[i].p_contact + "</br>"; 
-	            content = content + "<a href='javacript:void(0);' onclick='showvehicle("+data.rows[i].pid+");'>查看详细信息</a>";
+	            content = content + "<a href='javacript:void(0);' onclick='selectvehicle("+data.rows[i].pid+");'>查看详细信息</a>";
 	            content += "</div>";
 	            
 	        	createMarker(point, content, 'lp');
@@ -221,8 +221,17 @@ function freshmap(){
 	initwhtable();
 }
 
-function showvehicle(pid){
-	alert(pid);
+var staticpid;
+function selectvehicle(pid){
+	staticpid = pid;
+	var url = "selectvehicle.jsp";
+	var options = {
+			title:"选择出救工具",
+			href: url,
+			width:800,
+			height:400
+		};
+	$("#selectvehicle").window(options);
 }
 
 function reset(){
