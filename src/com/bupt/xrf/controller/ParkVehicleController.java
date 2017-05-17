@@ -24,10 +24,13 @@ public class ParkVehicleController {
 		String page = (String) params.get("page");
 		String rows = (String) params.get("rows");
 		String pid = (String) params.get("pid");
+		String tool = (String)params.get("tool");
 		
 		Map<String, Object> resultmap = new HashMap<>();
-		resultmap = parkVehicleService.findvehiclebypk(Integer.valueOf(page), Integer.valueOf(rows), pid);
-		
+		if(tool.equals("undefined"))
+			resultmap = parkVehicleService.findvehiclebypk(Integer.valueOf(page), Integer.valueOf(rows), pid);
+		else
+			resultmap = parkVehicleService.findvehiclebypkandtool(Integer.valueOf(page), Integer.valueOf(rows), pid, tool);
 		return resultmap;
 	}
 

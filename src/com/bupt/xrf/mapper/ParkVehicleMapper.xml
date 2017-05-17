@@ -40,4 +40,22 @@
 		select count(*) from park_vehicle where pid = #{pid};
 	</select>
 	
+	<select id="findvehiclebypkandtool" resultMap="ParkVehicleResultMap">
+		select * from park_vehicle pv LEFT JOIN logpark p
+			on pv.pid = p.pid
+			LEFT JOIN vehicle v
+			on pv.vid = v.vid
+			where pv.pid = #{pid}
+			and v.v_type = #{tool};
+	</select>
+	
+	<select id="countfindvehiclebypkandtool" resultType="int">
+		select count(*) from park_vehicle pv LEFT JOIN logpark p
+			on pv.pid = p.pid
+			LEFT JOIN vehicle v
+			on pv.vid = v.vid
+			where pv.pid = #{pid}
+			and v.v_type = #{tool};
+	</select>
+	
 </mapper>

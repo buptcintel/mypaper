@@ -10,4 +10,8 @@ public interface IParkVehicleDao {
 
 	public int countfindvehiclebypk(String pid);
 
+	public List<ParkVehicle> findvehiclebypkandtool(int page, int rows, String pid, String tool);
+
+	public int countfindvehiclebypkandtool(String pid, String tool);
+
 }

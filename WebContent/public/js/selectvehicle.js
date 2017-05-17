@@ -4,11 +4,18 @@
 
 $(document).ready(function(){
 	//初始化物资表
+	var tool;
+	if(statictool == '汽车')
+		tool = 0;
+	if(statictool == '火车')
+		tool = 1;
+	if(statictool == '飞机')
+		tool = 2;
 	
 	var IsCheckFlag = true; //标示是否是勾选复选框选中行的，true - 是 , false - 否
 	var lastIndex;			//双击变成可编辑时用
 	$('#vhtable').datagrid({
-		url:'/mypaper/parkvehicle/findvehiclebypk?pid=' + staticpid,
+		url:'/mypaper/parkvehicle/findvehiclebypk?pid=' + staticpid + '&tool=' + tool,
 		title:'出救物资表',
 		pageSize: 7,  
         pageList: [7, 14, 21],  
@@ -56,6 +63,7 @@ $(document).ready(function(){
 			}
 		}
 	});
+	statictool = '';
 });
 
 function useamount(pvid, vid, useamount){

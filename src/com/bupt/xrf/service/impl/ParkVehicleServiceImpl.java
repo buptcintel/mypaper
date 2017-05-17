@@ -43,4 +43,35 @@ public class ParkVehicleServiceImpl implements IParkVehicleService {
 		return result;
 	}
 
+	@Override
+	public Map<String, Object> findvehiclebypkandtool(int page, int rows, String pid, String tool) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		List<Map<String, Object>> res = new ArrayList<Map<String, Object>>();
+		if(tool.equals("0"))
+			tool = "汽车";
+		if(tool.equals("1"))
+			tool = "火车";
+		if(tool.equals("2"))
+			tool = "飞机";
+		List<ParkVehicle> parkVehicles = parkVehicleDao.findvehiclebypkandtool(page, rows, pid, tool);
+		for (ParkVehicle tmp : parkVehicles) {
+
+			Map<String, Object> resulttmp = new HashMap<String, Object>();
+			resulttmp.put("pvid", tmp.getPvid());
+			resulttmp.put("pid", tmp.getLogpark().getPid());
+			resulttmp.put("vid", tmp.getVehicle().getVid());
+			resulttmp.put("v_power", tmp.getVehicle().getV_power());
+			resulttmp.put("v_name", tmp.getVehicle().getV_name());
+			resulttmp.put("vamount", tmp.getVamount()+tmp.getVehicle().getV_unit());
+			resulttmp.put("useamount", tmp.getUseamount()+tmp.getVehicle().getV_unit());
+			resulttmp.put("v_cost", tmp.getVehicle().getV_cost());
+			resulttmp.put("ifuse", tmp.getIfuse());
+			res.add(resulttmp);
+		}
+		
+		result.put("total", parkVehicleDao.countfindvehiclebypkandtool(pid,tool));
+		result.put("rows", res);
+		return result;
+	}
+
 }

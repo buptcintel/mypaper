@@ -29,7 +29,9 @@ function initwhtable(){
             //添加超级链 
             formatter:function(value,rowData,rowIndex){
                 //function里面的三个参数代表当前字段值，当前行数据对象，行号（行号从0开始
-                return "<a href='javacript:void(0);' onclick='select("+ "\""+rowData.wid+ "\""+", " + "\""+rowData.coordinate+ "\""+");'>选择</a>";
+                return "<a href='javacript:void(0);' " +
+                		"onclick='select("+ "\""+rowData.wid+ "\""+", " + "\""+rowData.coordinate+ "\""+ ","+ "\""+rowData.tool+ "\");'>" +
+                				"选择</a>";
            }  
         },
 		{field:'detail',title: '出救物资',align: 'center',width:'17%',  
@@ -180,7 +182,9 @@ function showgoods(wid){
 	$("#showgoods").window(options);
 }
 
-function select(wid, wcoordinate){
+var statictool;
+function select(wid, wcoordinate, tool){
+	statictool = tool;
 	var result = wcoordinate.split(",");
 	var point = new BMap.Point(result[0], result[1]);
 	map.centerAndZoom(point, 14);
