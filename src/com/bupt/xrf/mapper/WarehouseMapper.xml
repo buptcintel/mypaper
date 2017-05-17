@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="warehouseModule">
+	<resultMap id="WarehouseResultMap" type="com.bupt.xrf.entity.Warehouse">
+		<id column="wid" property="wid" jdbcType="VARCHAR" />
+		<result column="wname" property="wname" jdbcType="VARCHAR" />
+		<result column="coordinate" property="coordinate" jdbcType="VARCHAR" />
+		<result column="location" property="location" jdbcType="VARCHAR" />
+		<result column="type" property="type" jdbcType="VARCHAR" />
+		<result column="ascription" property="ascription" jdbcType="VARCHAR" />
+		<result column="contact" property="contact" jdbcType="VARCHAR" />
+		<result column="number" property="number" jdbcType="VARCHAR" />
+		<result column="transportation" property="transportation" jdbcType="VARCHAR" />
+		<result column="flag" property="flag" jdbcType="VARCHAR" />
+		<result column="needpower" property="needpower" jdbcType="INTEGER" />
+		<result column="tool" property="tool" jdbcType="VARCHAR" />
+		<result column="unitcost" property="unitcost" jdbcType="INTEGER" />
+		<result column="timetoarrive" property="timetoarrive" jdbcType="DOUBLE" />
+	</resultMap>
+	
+	<select id="findbypage" resultMap="WarehouseResultMap">
+		select * from warehouse ORDER BY flag DESC
+	</select>
+	
+	<select id="countall" resultType="int">
+		select count(*) from warehouse
+	</select>
+	
+	<update id="adjustwarehouse" parameterType="java.util.Map">
+		update warehouse
+		<set >   
+			<if test="flag != null" >  
+			    flag = #{flag},  
+			</if>
+			<if test="tool != null" >  
+			    tool = #{tool},  
+			</if>
+			<if test="needpower != null" >  
+			    needpower = #{needpower},  
+			</if>
+			<if test="timetoarrive != null" >  
+			    timetoarrive = #{timetoarrive},  
+			</if>
+	  	</set>  
+    	where wid = #{wid}
+	</update>
+	
+	<select id="selectedwh" resultMap="WarehouseResultMap">
+		select * from warehouse where flag = '1'
+	</select>
+	
+	<select id="countselectedwh" resultType="int">
+		select count(*) from warehouse where flag = '1'
+	</select>
+	
+	<update id="setneedpower" parameterType="java.util.Map">
+		update warehouse
+		<set >   
+			<if test="needpower != null" >  
+			    needpower = #{needpower},  
+			</if>
+	  	</set>  
+    	where wid = #{wid}
+	</update>
+	
+	<select id="findbywid" resultMap="WarehouseResultMap">
+		select * from warehouse where wid = #{wid}
+	</select>
+</mapper>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="whgoodModule">
+	<resultMap id="WhGoodResultMap" type="com.bupt.xrf.entity.WhGood">
+		<id column="gwid" property="gwid" jdbcType="VARCHAR" />
+		<result column="amount" property="amount" jdbcType="INTEGER" />
+		<result column="usecount" property="usecount" jdbcType="INTEGER" />
+		<result column="ifuse" property="ifuse" jdbcType="VARCHAR" />
+		<association property="good" javaType="com.bupt.xrf.entity.Good" column="gid">
+			<id column="gid" property="gid" jdbcType="VARCHAR" />
+			<result column="code" property="code" jdbcType="VARCHAR" />
+			<result column="unit" property="unit" jdbcType="VARCHAR" />
+			<result column="gname" property="gname" jdbcType="VARCHAR" />
+			<result column="kind" property="kind" jdbcType="VARCHAR" />
+			<result column="weight" property="weight" jdbcType="FLOAT" />
+		</association>
+		<association property="warehouse" javaType="com.bupt.xrf.entity.Warehouse" column="wid">
+			<id column="wid" property="wid" jdbcType="VARCHAR" />
+			<result column="wname" property="wname" jdbcType="VARCHAR" />
+			<result column="coordinate" property="coordinate" jdbcType="VARCHAR" />
+			<result column="location" property="location" jdbcType="VARCHAR" />
+			<result column="type" property="type" jdbcType="VARCHAR" />
+			<result column="ascription" property="ascription" jdbcType="VARCHAR" />
+			<result column="contact" property="contact" jdbcType="VARCHAR" />
+			<result column="number" property="number" jdbcType="VARCHAR" />
+			<result column="transportation" property="transportation" jdbcType="VARCHAR" />
+			<result column="tool" property="tool" jdbcType="VARCHAR" />
+		</association>
+	</resultMap>
+	
+	<select id="findbypage" resultMap="WhGoodResultMap">
+		select * from good_warehouse gw LEFT JOIN warehouse w
+			on gw.wid = w.wid
+			LEFT JOIN good g
+			on gw.gid = g.gid
+			where gw.wid = #{wid};
+	</select>
+	
+	<select id="countall" resultType="int">
+		select count(*) from good_warehouse where wid = #{wid};
+	</select>
+	
+	<update id="adjustuse" parameterType="java.util.Map">
+		update good_warehouse
+		<set >  
+			<if test="ifuse != null" >  
+		    	ifuse = #{ifuse},  
+			</if>  
+			<if test="usecount != null" >  
+			    usecount = #{usecount},  
+			</if>  
+			<if test="amount != null" >  
+			    amount = #{amount},  
+			</if>
+	  	</set>  
+    	where gwid = #{gwid} and wid = #{wid} and gid = #{gid}
+	</update>
+	
+	<select id="ifusewh" resultType="String">
+		SELECT max(ifuse) from good_warehouse where wid = #{wid}
+	</select>
+	
+	<select id="selectgoods" resultMap="WhGoodResultMap">
+		select * from good_warehouse gw LEFT JOIN warehouse w
+			on gw.wid = w.wid
+			LEFT JOIN good g
+			on gw.gid = g.gid
+			where gw.wid = #{wid} and ifuse = '1';
+	</select>
+	
+	<select id="countselectgoods" resultType="int">
+		select count(*) from good_warehouse where wid = #{wid} and ifuse = '1';
+	</select>
+	
+	<select id="calneedpower" resultType="int">
+		select sum(usecount*weight) from good_warehouse,good where wid = #{wid} and good_warehouse.gid = good.gid;
+	</select>
+	
+	<select id="findwhbygoods" resultMap="WhGoodResultMap">
+		select * from good_warehouse gw LEFT JOIN warehouse w
+			on gw.wid = w.wid
+			LEFT JOIN good g
+			on gw.gid = g.gid
+			where gw.gid = #{gid} and ifuse = '1';
+	</select>
+	
+	<select id="countfindwhbygoods" resultType="int">
+		select count(*) from good_warehouse where gid = #{gid} and ifuse = '1';
+	</select>
+	
+	<select id="findall" resultMap="WhGoodResultMap">
+		select * from good_warehouse gw LEFT JOIN warehouse w
+			on gw.wid = w.wid
+			LEFT JOIN good g
+			on gw.gid = g.gid
+	</select>
+	
+</mapper>
