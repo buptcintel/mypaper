@@ -108,6 +108,7 @@ function initlogparktable(){
             //添加超级链 
             formatter:function(value,rowData,rowIndex){
                 //function里面的三个参数代表当前字段值，当前行数据对象，行号（行号从0开始
+            	//可以查看该物流园区的所有运输工具
                 return "<a href='javacript:void(0);' onclick='selectvehicle(" +rowData.pid+ ");'>查看</a>";
            }  
         }
@@ -203,6 +204,7 @@ function select(wid, wcoordinate, tool){
 	            content = content + "详细地址：" + data.rows[i].p_location + "</br>"; 
 	            content = content + "联系人：" + data.rows[i].p_master + "</br>"; 
 	            content = content + "联系方式：" + data.rows[i].p_contact + "</br>"; 
+	            //只能查看该仓储已经确定的运输工具类型
 	            content = content + "<a href='javacript:void(0);' onclick='selectvehicle("+data.rows[i].pid+");'>查看详细信息</a>";
 	            content += "</div>";
 	            
