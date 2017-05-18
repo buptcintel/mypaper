@@ -12,6 +12,17 @@ $(document).ready(function(){
 	if(statictool == '飞机')
 		tool = 2;
 	
+	var flag;
+	var width;
+	if(!statictool){
+		flag = true;
+		width = '24%';
+	}
+	else{
+		flag = false;
+		width = '19%';
+	}
+		
 	var IsCheckFlag = true; //标示是否是勾选复选框选中行的，true - 是 , false - 否
 	var lastIndex;			//双击变成可编辑时用
 	$('#vhtable').datagrid({
@@ -28,8 +39,8 @@ $(document).ready(function(){
 		singleSelect:false,
 		loadMsg:'数据加载中......',
 		columns:[[
-		{field:'ck',checkbox:true,width:'5%'},
-		{field:'v_name',title:'工具名称',width:'19%',align:'center'},
+		{field:'ck',checkbox:true ,width:'5%', hidden:flag},
+		{field:'v_name',title:'工具名称',width:width,align:'center'},
 		{field:'v_power',title:'工具运力(kg)',width:'19%',align:'center'},
 		{field:'v_cost',title:'出救成本(元)',width:'18%',align:'center'},
 		{field:'vamount',title:'拥有量',width:'19%',align:'center'},
