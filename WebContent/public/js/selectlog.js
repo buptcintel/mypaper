@@ -205,7 +205,7 @@ function select(wid, wcoordinate, tool){
 	            content = content + "联系人：" + data.rows[i].p_master + "</br>"; 
 	            content = content + "联系方式：" + data.rows[i].p_contact + "</br>"; 
 	            //只能查看该仓储已经确定的运输工具类型
-	            content = content + "<a href='javacript:void(0);' onclick='selectvehicle("+data.rows[i].pid+");'>查看详细信息</a>";
+	            content = content + "<a href='javacript:void(0);' onclick='selectvehiclebytool("+data.rows[i].pid+");'>查看详细信息</a>";
 	            content += "</div>";
 	            
 	        	createMarker(point, content, 'lp');
@@ -228,8 +228,21 @@ function freshmap(){
 }
 
 var staticpid;
+function selectvehiclebytool(pid){
+	staticpid = pid;
+	var url = "selectvehicle.jsp";
+	var options = {
+			title:"选择出救工具",
+			href: url,
+			width:800,
+			height:400
+		};
+	$("#selectvehicle").window(options);
+}
+
 function selectvehicle(pid){
 	staticpid = pid;
+	statictool = '';
 	var url = "selectvehicle.jsp";
 	var options = {
 			title:"选择出救工具",

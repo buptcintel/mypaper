@@ -32,8 +32,8 @@ $(document).ready(function(){
 		{field:'v_name',title:'工具名称',width:'19%',align:'center'},
 		{field:'v_power',title:'工具运力(kg)',width:'19%',align:'center'},
 		{field:'v_cost',title:'出救成本(元)',width:'18%',align:'center'},
-		{field:'vamount',title:'拥有量',width:'19%',align:'center',editor: { type: 'text'}},
-		{field:'useamount',title:'出救量',width:'19%',align:'center'}
+		{field:'vamount',title:'拥有量',width:'19%',align:'center'},
+		{field:'useamount',title:'出救量',width:'19%',align:'center',editor: { type: 'text'}}
 		]],
 		onDblClickRow:function(rowIndex,rowData) {
 			$("#vhtable").datagrid('endEdit',lastIndex);
@@ -63,7 +63,7 @@ $(document).ready(function(){
 			}
 		}
 	});
-	statictool = '';
+	//statictool = '';
 });
 
 function useamount(pvid, vid, useamount){
