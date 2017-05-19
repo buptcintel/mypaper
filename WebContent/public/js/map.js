@@ -136,6 +136,11 @@ function createMarker(point,content,flag){
 }
 
 function chooseplan(){
+	map.clearOverlays();
+	var point = new BMap.Point(103.048991,30.016365);
+	map.centerAndZoom(point, 7);
+	map.addOverlay(marker);               // 将标注添加到地图中
+	marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
 	var radio = document.getElementsByName("plan");  
     for (i=0; i<radio.length; i++) {
         if (radio[i].checked) {
