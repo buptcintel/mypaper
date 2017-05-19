@@ -31,4 +31,9 @@ public class LogparkServiceImpl implements ILogparkService {
 		return result;
 	}
 
+	@Override
+	public void settotaluse(String pid) {
+		logparkDao.settotaluse(pid);
+	}
+
 }

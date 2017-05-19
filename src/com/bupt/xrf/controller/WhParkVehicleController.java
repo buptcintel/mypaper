@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bupt.xrf.entity.WhLogpark;
-import com.bupt.xrf.service.IWhLogparkService;
+import com.bupt.xrf.entity.WhParkVehicle;
+import com.bupt.xrf.service.IWhParkVehicleService;
 
-@Controller("whlogparkController")
-@RequestMapping("/whlogpark")
-public class WhLogparkController {
+@Controller("whParkVehicleController")
+@RequestMapping("/whparkvehicle")
+public class WhParkVehicleController {
 	
 	@Autowired
-	private IWhLogparkService whLogparkService;
+	private IWhParkVehicleService whParkVehicleService;
 	
 	@RequestMapping("/findlogbywh")
 	@ResponseBody
@@ -28,10 +28,10 @@ public class WhLogparkController {
 		String wid = (String) params.get("wid");
 		Map<String, Object> resultmap = new HashMap<>();
 		
-		resultmap = whLogparkService.findlogbywh(Integer.valueOf(page), Integer.valueOf(rows),wid);
+		resultmap = whParkVehicleService.findlogbywh(Integer.valueOf(page), Integer.valueOf(rows),wid);
 
-		List<WhLogpark> whLogparks = whLogparkService.findalllogbywh(wid);
-		resultmap.put("all", whLogparks);
+		List<WhParkVehicle> whParkVehicles = whParkVehicleService.findalllogbywh(wid);
+		resultmap.put("all", whParkVehicles);
 		return resultmap;
 	}
 

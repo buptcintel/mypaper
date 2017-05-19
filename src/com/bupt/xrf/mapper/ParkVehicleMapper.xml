@@ -7,6 +7,7 @@
 		<result column="vamount" property="vamount" jdbcType="INTEGER" />
 		<result column="useamount" property="useamount" jdbcType="INTEGER" />
 		<result column="ifuse" property="ifuse" jdbcType="VARCHAR" />
+		<result column="availableamount" property="availableamount" jdbcType="INTEGER" />
 		<association property="logpark" javaType="com.bupt.xrf.entity.Logpark" column="pid">
 			<id column="pid" property="pid" jdbcType="VARCHAR" />
 			<result column="p_name" property="p_name" jdbcType="VARCHAR" />
@@ -14,7 +15,6 @@
 			<result column="p_location" property="p_location" jdbcType="VARCHAR" />
 			<result column="p_master" property="p_master" jdbcType="VARCHAR" />
 			<result column="p_contact" property="p_contact" jdbcType="VARCHAR" />
-			<result column="flag" property="flag" jdbcType="VARCHAR" />
 			<result column="p_power" property="p_power" jdbcType="INTEGER" />
 			<result column="totaluse" property="totaluse" jdbcType="INTEGER" />
 		</association>
@@ -57,5 +57,11 @@
 			where pv.pid = #{pid}
 			and v.v_type = #{tool};
 	</select>
+	
+	<update id="adjustuse" parameterType="java.util.Map">
+		update park_vehicle
+		set ifuse = #{ifuse}, useamount = #{useamount}, availableamount = vamount-useamount
+    	where pvid = #{pvid} and pid = #{pid} and vid = #{vid}
+	</update>
 	
 </mapper>

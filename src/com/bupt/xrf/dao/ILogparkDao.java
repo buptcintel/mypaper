@@ -14,4 +14,6 @@ public interface ILogparkDao {
 
 	public int countselectedpk();
 
+	public void settotaluse(String pid);
+
 }

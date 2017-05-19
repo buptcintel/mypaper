@@ -8,6 +8,7 @@ public class ParkVehicle {
 	private String ifuse;
 	private int vamount;
 	private int useamount;
+	private int availableamount;
 	
 	public String getPvid() {
 		return pvid;
@@ -45,10 +46,15 @@ public class ParkVehicle {
 	public void setUseamount(int useamount) {
 		this.useamount = useamount;
 	}
-	
+	public int getAvailableamount() {
+		return availableamount;
+	}
+	public void setAvailableamount(int availableamount) {
+		this.availableamount = availableamount;
+	}
 	@Override
 	public String toString() {
 		return "ParkVehicle [pvid=" + pvid + ", vehicle=" + vehicle + ", logpark=" + logpark + ", ifuse=" + ifuse
-				+ ", vamount=" + vamount + ", useamount=" + useamount + "]";
+				+ ", vamount=" + vamount + ", useamount=" + useamount + ", availableamount=" + availableamount + "]";
 	}
 }

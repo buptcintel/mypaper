@@ -84,4 +84,16 @@ public class ParkVehicleDaoImpl implements IParkVehicleDao {
 		return result;
 	}
 
+	@Override
+	public void adjustuse(Map<String, Object> params) {
+		SqlSession session = sessionFactory.openSession();	
+		try {
+			session.update("parkvehicleModule.adjustuse", params);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			session.close();
+		}
+	}
+
 }

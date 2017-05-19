@@ -76,4 +76,16 @@ public class LogparkDaoImpl implements ILogparkDao {
 		return result;
 	}
 
+	@Override
+	public void settotaluse(String pid) {
+		SqlSession session = sessionFactory.openSession();	
+		try {
+			session.update("logparkModule.settotaluse", pid);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			session.close();
+		}
+	}
+
 }

@@ -52,7 +52,7 @@ $(document).ready(function(){
 			document.onkeydown=function(){
 				if (event.keyCode == 13){
 					$("#goodstable").datagrid('endEdit',rowIndex);
-					updategrid(rowData.gwid, rowData.gid, rowData.usecount);
+					updategrid(rowData.gwid, rowData.gid, rowData.usecount, rowData.amount);
 				}
 			};
 		},
@@ -116,21 +116,28 @@ function initradio(){
     });  
 }
 
-function updategrid(gwid, gid, usecount){
+function updategrid(gwid, gid, usecount, amount){
 	if(window.confirm('确定修改？')){
-		//判断该物资是否还被选中出救
-		$.ajax({  
-	        type: "POST",  
-	        url: "/mypaper/whgood/adjustuse", 
-	        data: {"gwid":gwid, "wid":staticwid,"gid":gid,"usecount":usecount},  
-	        success: function(data){  
-	        	$('#goodstable').datagrid('reload');
-	        },  
-	        error: function(json){  
-	            alert("系统异常，请刷新后重试...");  
-	        }  
-	    });  
-        return true;
+		if(usecount > amount){
+			alert("可用量不足，请重新输入！")
+			$('#goodstable').datagrid('reload');
+			return false;
+		}
+		else{
+			//判断该物资是否还被选中出救
+			$.ajax({  
+		        type: "POST",  
+		        url: "/mypaper/whgood/adjustuse", 
+		        data: {"gwid":gwid, "wid":staticwid,"gid":gid,"usecount":usecount},  
+		        success: function(data){  
+		        	$('#goodstable').datagrid('reload');
+		        },  
+		        error: function(json){  
+		            alert("系统异常，请刷新后重试...");  
+		        }  
+		    });  
+	        return true;
+		}
     }
 	else{
 		$('#goodstable').datagrid('reload');
@@ -170,8 +177,4 @@ function closewindow(){
             alert("系统异常，请刷新后重试...");  
         }  
     });
-}
-
-function cancel(){
-	$('#selectgoods').window('close', true);
 }

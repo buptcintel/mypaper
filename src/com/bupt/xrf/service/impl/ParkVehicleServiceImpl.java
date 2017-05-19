@@ -33,6 +33,7 @@ public class ParkVehicleServiceImpl implements IParkVehicleService {
 			resulttmp.put("v_name", tmp.getVehicle().getV_name());
 			resulttmp.put("vamount", tmp.getVamount()+tmp.getVehicle().getV_unit());
 			resulttmp.put("useamount", tmp.getUseamount()+tmp.getVehicle().getV_unit());
+			resulttmp.put("availableamount", tmp.getAvailableamount()+tmp.getVehicle().getV_unit());
 			resulttmp.put("v_cost", tmp.getVehicle().getV_cost());
 			resulttmp.put("ifuse", tmp.getIfuse());
 			res.add(resulttmp);
@@ -64,6 +65,7 @@ public class ParkVehicleServiceImpl implements IParkVehicleService {
 			resulttmp.put("v_name", tmp.getVehicle().getV_name());
 			resulttmp.put("vamount", tmp.getVamount()+tmp.getVehicle().getV_unit());
 			resulttmp.put("useamount", tmp.getUseamount()+tmp.getVehicle().getV_unit());
+			resulttmp.put("availableamount", tmp.getAvailableamount()+tmp.getVehicle().getV_unit());
 			resulttmp.put("v_cost", tmp.getVehicle().getV_cost());
 			resulttmp.put("ifuse", tmp.getIfuse());
 			res.add(resulttmp);
@@ -72,6 +74,17 @@ public class ParkVehicleServiceImpl implements IParkVehicleService {
 		result.put("total", parkVehicleDao.countfindvehiclebypkandtool(pid,tool));
 		result.put("rows", res);
 		return result;
+	}
+
+	@Override
+	public void adjustuse(String pvid, String pid, String vid, int count, String ifuse) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("pvid", pvid);
+		params.put("pid", pid);
+		params.put("vid", vid);
+		params.put("useamount", count);
+		params.put("ifuse", ifuse);
+		parkVehicleDao.adjustuse(params);
 	}
 
 }

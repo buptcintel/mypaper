@@ -21,7 +21,7 @@
   	</div>
   	<div style="height: 5%; margin-top: 8px;" align="center">
 		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" style="width:150px" onclick="closewindow()">确定</a>
-  		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" style="width:150px" onclick="cancel()">取消</a>
+  		<!-- <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" style="width:150px" onclick="cancel()">取消</a> -->
   	</div>
   	<script type="text/javascript" src="<%=path%>/public/js/selectgoods.js"></script>
 </body>

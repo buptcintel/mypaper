@@ -11,7 +11,6 @@ public class Logpark {
 	private Trancompany trancompany;
 	private int p_power;
 	private int totaluse;
-	private String flag;
 	
 	public String getPid() {
 		return pid;
@@ -61,12 +60,6 @@ public class Logpark {
 	public void setP_power(int p_power) {
 		this.p_power = p_power;
 	}
-	public String getFlag() {
-		return flag;
-	}
-	public void setFlag(String flag) {
-		this.flag = flag;
-	}
 	public int getTotaluse() {
 		return totaluse;
 	}
@@ -78,6 +71,6 @@ public class Logpark {
 	public String toString() {
 		return "Logpark [pid=" + pid + ", p_name=" + p_name + ", p_coordinate=" + p_coordinate + ", p_location="
 				+ p_location + ", p_master=" + p_master + ", p_contact=" + p_contact + ", trancompany=" + trancompany
-				+ ", p_power=" + p_power + ", totaluse=" + totaluse + ", flag=" + flag + "]";
+				+ ", p_power=" + p_power + ", totaluse=" + totaluse +"]";
 	}
 }

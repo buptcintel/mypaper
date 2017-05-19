@@ -167,5 +167,18 @@ function reset(){
 }
 
 function next(){
+	//删除warehouse_park表中所有记录
+	//将logpark表中totaluse字段设为0
+	//将park_vehicle表中ifuse字段设为0，useamount字段设为0
+//	$.ajax({  
+//        type: "POST",  
+//        url: "/mypaper/logpark/clearpark", 
+//        success: function(data){  
+//			
+//        },  
+//        error: function(json){  
+//            alert("系统异常，请刷新后重试...");  
+//        }  
+//    });  
 	window.location.href = "selectlog.jsp";
 }

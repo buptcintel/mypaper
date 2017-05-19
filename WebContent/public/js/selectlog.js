@@ -85,6 +85,7 @@ function initwhtable(){
 }
 
 function initlogparktable(){
+	var tool = '';
 	
 	//初始化物流公司表
     var IsCheckFlag2 = true; //标示是否是勾选复选框选中行的，true - 是 , false - 否
@@ -103,13 +104,13 @@ function initlogparktable(){
 		columns:[[
 		{field:'ck',checkbox:true,width:'5%'},
 		{field:'p_name',title:'园区名称',width:'50%',align:'center'},
-		{field:'p_power',title:'总运力(kg)',width:'24%',align:'center'},
+		{field:'totaluse',title:'出救运力(kg)',width:'24%',align:'center'},
 		{field:'detail',title: '详情',align: 'center',width:'15%',  
             //添加超级链 
             formatter:function(value,rowData,rowIndex){
                 //function里面的三个参数代表当前字段值，当前行数据对象，行号（行号从0开始
             	//可以查看该物流园区的所有运输工具
-                return "<a href='javacript:void(0);' onclick='selectvehicle(" +rowData.pid+ ");'>查看</a>";
+                return "<a href='javacript:void(0);' onclick='selectvehicle("+ "\""+rowData.pid+ "\""+", " + "\""+tool+ "\""+", " + "\""+tool+ "\");'>查看</a>";
            }  
         }
 		]],
@@ -132,6 +133,14 @@ function initlogparktable(){
 				IsCheckFlag2 = true;
 				$("#selectlog").datagrid("selectRow", rowIndex);
 			}
+		},
+		onLoadSuccess:function(data){
+			var rowData = data.rows;  
+            $.each(rowData,function(idx,val){//遍历JSON  
+                  if(val.totaluse > '0'){  
+                    $("#selectlog").datagrid("selectRow", idx);//如果数据行为已选中则选中改行  
+                  }  
+            });
 		}
 	});
 	
@@ -142,7 +151,7 @@ function initlogparktable(){
 	
 }
 
-function createMarker(point,content,flag){
+function createMarker(point,content,flag,totaluse){
 	var myIcon;
 	var title;
 	if(flag == 'wh'){
@@ -152,10 +161,17 @@ function createMarker(point,content,flag){
 		title = "仓储详细信息";
 	}
 	if(flag == 'lp'){
-		var myIcon = new BMap.Icon("/mypaper/img/logpark.png", new BMap.Size(32, 32), {    //仓库
-			imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
-		  });
-		title = "仓储详细信息";
+		if(totaluse == '0'){
+			var myIcon = new BMap.Icon("/mypaper/img/logpark.png", new BMap.Size(32, 32), {    //仓库
+				imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
+			  });
+		}
+		else{
+			var myIcon = new BMap.Icon("/mypaper/img/logpark_select.png", new BMap.Size(32, 32), {    //仓库
+				imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
+			  });
+		}
+		title = "物流园区详细信息";
 	}
 	var opts = {
 			  width : 400,     // 信息窗口宽度
@@ -183,8 +199,10 @@ function showgoods(wid){
 	$("#showgoods").window(options);
 }
 
+var staticwcoordinate;
 function select(wid, wcoordinate, tool){
 	statictool = tool;
+	staticwcoordinate = wcoordinate;
 	var result = wcoordinate.split(",");
 	var point = new BMap.Point(result[0], result[1]);
 	map.centerAndZoom(point, 14);
@@ -204,10 +222,10 @@ function select(wid, wcoordinate, tool){
 	            content = content + "联系人：" + data.rows[i].p_master + "</br>"; 
 	            content = content + "联系方式：" + data.rows[i].p_contact + "</br>"; 
 	            //只能查看该仓储已经确定的运输工具类型
-	            content = content + "<a href='javacript:void(0);' onclick='selectvehiclebytool("+ "\""+data.rows[i].pid+ "\""+", " + "\""+tool+ "\""+");'>查看详细信息</a>";
+	            content = content + "<a href='javacript:void(0);' onclick='selectvehicle("+ "\""+data.rows[i].pid+ "\""+", " + "\""+tool+ "\""+", " + "\""+wid+ "\");'>查看详细信息</a>";
 	            content += "</div>";
 	            
-	        	createMarker(point, content, 'lp');
+	        	createMarker(point, content, 'lp', data.rows[i].totaluse);
         	}
         },  
         error: function(data){  
@@ -228,22 +246,10 @@ function freshmap(){
 
 var staticpid;
 var statictool;
-function selectvehiclebytool(pid, tool){
+function selectvehicle(pid, tool, wid){
 	staticpid = pid;
 	statictool = tool;
-	var url = "selectvehicle.jsp";
-	var options = {
-			title:"选择出救工具",
-			href: url,
-			width:800,
-			height:400
-		};
-	$("#selectvehicle").window(options);
-}
-
-function selectvehicle(pid){
-	staticpid = pid;
-	statictool = '';
+	staticwid = wid;
 	var url = "selectvehicle.jsp";
 	var options = {
 			title:"选择出救工具",

@@ -8,4 +8,6 @@ public interface ILogparkService {
 
 	public Map<String, Object> selectedpk(int page, int rows);
 
+	public void settotaluse(String pid);
+
 }

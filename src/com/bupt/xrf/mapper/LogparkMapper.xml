@@ -9,7 +9,6 @@
 		<result column="p_location" property="p_location" jdbcType="VARCHAR" />
 		<result column="p_master" property="p_master" jdbcType="VARCHAR" />
 		<result column="p_contact" property="p_contact" jdbcType="VARCHAR" />
-		<result column="flag" property="flag" jdbcType="VARCHAR" />
 		<result column="p_power" property="p_power" jdbcType="INTEGER" />
 		<result column="totaluse" property="totaluse" jdbcType="INTEGER" />
 		<association property="trancompany" javaType="com.bupt.xrf.entity.Trancompany" column="cid">
@@ -22,7 +21,7 @@
 	</resultMap>
 	
 	<select id="findbypage" resultMap="LogparkResultMap">
-		select * from logpark ORDER BY flag DESC
+		select * from logpark ORDER BY 'totaluse' DESC
 	</select>
 	
 	<select id="countall" resultType="int">
@@ -30,11 +29,18 @@
 	</select>
 	
 	<select id="selectedpk" resultMap="LogparkResultMap">
-		select * from logpark where flag = '1'
+		select * from logpark where totaluse > 0
 	</select>
 	
 	<select id="countselectedpk" resultType="int">
-		select count(*) from logpark where flag = '1'
+		select count(*) from logpark where totaluse > 0
 	</select>
+	
+	<update id="settotaluse" parameterType="java.util.Map">
+		UPDATE logpark
+		SET totaluse = 
+		(SELECT sum(useamount*v_power) from park_vehicle, vehicle WHERE park_vehicle.vid = vehicle.vid AND park_vehicle.pid = #{pid})
+		WHERE pid = #{pid}
+	</update>
 	
 </mapper>

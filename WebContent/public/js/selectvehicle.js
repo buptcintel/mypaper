@@ -43,7 +43,7 @@ $(document).ready(function(){
 		{field:'v_name',title:'工具名称',width:width,align:'center'},
 		{field:'v_power',title:'工具运力(kg)',width:'19%',align:'center'},
 		{field:'v_cost',title:'出救成本(元)',width:'18%',align:'center'},
-		{field:'vamount',title:'拥有量',width:'19%',align:'center'},
+		{field:'availableamount',title:'可用量',width:'19%',align:'center'},
 		{field:'useamount',title:'出救量',width:'19%',align:'center',editor: { type: 'text'}}
 		]],
 		onDblClickRow:function(rowIndex,rowData) {
@@ -53,7 +53,7 @@ $(document).ready(function(){
 			document.onkeydown=function(){
 				if (event.keyCode == 13){//空格键确认，否则无效
 					$("#vhtable").datagrid('endEdit',rowIndex);
-					updatevpgrid(rowData.pvid, rowData.vid, rowData.useamount);
+					updatevpgrid(rowData.pvid, rowData.vid, rowData.useamount, rowData.availableamount);
 				}
 			};
 		},
@@ -72,26 +72,39 @@ $(document).ready(function(){
 				IsCheckFlag = true;
 				$("#vhtable").datagrid("selectRow", rowIndex);
 			}
+		},
+		onLoadSuccess:function(data){
+			var rowData = data.rows;  
+            $.each(rowData,function(idx,val){//遍历JSON  
+                  if(val.ifuse=='1'){  
+                    $("#vhtable").datagrid("selectRow", idx);//如果数据行为已选中则选中改行  
+                  }  
+            });
 		}
 	});
-	//statictool = '';
 });
 
-function useamount(pvid, vid, useamount){
+function updatevpgrid(pvid, vid, useamount, availableamount){
 	if(window.confirm('确定修改？')){
-		//判断该物资是否还被选中出救
-		$.ajax({  
-	        type: "POST",  
-	        url: "/mypaper/parkvehicle/adjustuse", 
-	        data: {"pvid":pvid, "pid":staticpid,"vid":vid,"useamount":useamount},  
-	        success: function(data){  
-	        	$('#goodstable').datagrid('reload');
-	        },  
-	        error: function(json){  
-	            alert("系统异常，请刷新后重试...");  
-	        }  
-	    });  
-        return true;
+		if(availableamount < useamount){
+			alert("可用量不足，请重新输入！");
+			$('#vhtable').datagrid('reload');
+			return false;
+		}
+		else{
+			$.ajax({  
+		        type: "POST",  
+		        url: "/mypaper/parkvehicle/adjustuse", 
+		        data: {"pvid":pvid, "vid":vid, "pid":staticpid, "wid":staticwid,"useamount":useamount},  
+		        success: function(data){  
+		        	$('#vhtable').datagrid('reload');
+		        },  
+		        error: function(json){  
+		            alert("系统异常，请刷新后重试...");  
+		        }  
+		    });  
+	        return true;
+		}
     }
 	else{
 		$('#vhtable').datagrid('reload');
@@ -101,9 +114,7 @@ function useamount(pvid, vid, useamount){
 
 function closewindow(){
 	$('#selectvehicle').window('close', true);
-}
-
-function setvh(){
-	alert("确定");
-	$('#selectvehicle').window('close', true);
+	map.clearOverlays();
+	freshmap();
+	select(staticwid, staticwcoordinate, statictool);
 }

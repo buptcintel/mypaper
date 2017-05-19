@@ -8,4 +8,6 @@ public interface IParkVehicleService {
 
 	public Map<String, Object> findvehiclebypkandtool(int page, int rows, String pid, String tool);
 
+	public void adjustuse(String pvid, String pid, String vid, int count, String ifuse);
+
 }

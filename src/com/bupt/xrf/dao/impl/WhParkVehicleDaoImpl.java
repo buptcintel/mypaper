@@ -9,28 +9,28 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.bupt.xrf.dao.IWhLogparkDao;
-import com.bupt.xrf.entity.WhLogpark;
+import com.bupt.xrf.dao.IWhParkVehicleDao;
+import com.bupt.xrf.entity.WhParkVehicle;
 
-@Repository("whlogparkDao")
-public class WhLogparkDaoImpl implements IWhLogparkDao {
+@Repository("whParkVehicleDao")
+public class WhParkVehicleDaoImpl implements IWhParkVehicleDao {
 	
 	@Autowired
 	private SqlSessionFactory sessionFactory;
 
 	@Override
-	public List<WhLogpark> findlogbywh(int page, int rows, String wid) {
+	public List<WhParkVehicle> findlogbywh(int page, int rows, String wid) {
 		SqlSession session = sessionFactory.openSession();
-		List<WhLogpark> whLogparks = new ArrayList<>();
+		List<WhParkVehicle> whParkVehicles = new ArrayList<>();
 		RowBounds rowBounds = new RowBounds((page-1)*rows, rows);
 		try {
-			whLogparks = session.selectList("whlogparkModule.findlogbywh", wid, rowBounds);
+			whParkVehicles = session.selectList("whparkvehicleModule.findlogbywh", wid, rowBounds);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		} finally {
 			session.close();
 		}
-		return whLogparks;
+		return whParkVehicles;
 	}
 
 	@Override
@@ -38,7 +38,7 @@ public class WhLogparkDaoImpl implements IWhLogparkDao {
 		SqlSession session = sessionFactory.openSession();
 		int result = 0;
 		try {
-			result = session.selectOne("whlogparkModule.countfindlogbywh", wid);
+			result = session.selectOne("whparkvehicleModule.countfindlogbywh", wid);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		} finally {
@@ -48,17 +48,17 @@ public class WhLogparkDaoImpl implements IWhLogparkDao {
 	}
 
 	@Override
-	public List<WhLogpark> findalllogbywh(String wid) {
+	public List<WhParkVehicle> findalllogbywh(String wid) {
 		SqlSession session = sessionFactory.openSession();
-		List<WhLogpark> whLogparks = new ArrayList<>();
+		List<WhParkVehicle> whParkVehicles = new ArrayList<>();
 		try {
-			whLogparks = session.selectList("whlogparkModule.findlogbywh", wid);
+			whParkVehicles = session.selectList("whparkvehicleModule.findlogbywh", wid);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		} finally {
 			session.close();
 		}
-		return whLogparks;
+		return whParkVehicles;
 	}
 
 }

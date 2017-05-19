@@ -2,6 +2,8 @@ package com.bupt.xrf.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bupt.xrf.service.ILogparkService;
 import com.bupt.xrf.service.IParkVehicleService;
 
 @Controller("parkvehicleController")
@@ -17,6 +20,9 @@ public class ParkVehicleController {
 	
 	@Autowired
 	private IParkVehicleService parkVehicleService;
+	
+	@Autowired
+	private ILogparkService logparkService;
 	
 	@RequestMapping("/findvehiclebypk")
 	@ResponseBody
@@ -31,6 +37,35 @@ public class ParkVehicleController {
 			resultmap = parkVehicleService.findvehiclebypk(Integer.valueOf(page), Integer.valueOf(rows), pid);
 		else
 			resultmap = parkVehicleService.findvehiclebypkandtool(Integer.valueOf(page), Integer.valueOf(rows), pid, tool);
+		return resultmap;
+	}
+	
+	@RequestMapping("/adjustuse")
+	@ResponseBody
+	public Map<String, Object> adjustuse(@RequestParam Map<String,Object> params){		
+		String wid = (String) params.get("wid");
+		String pid = (String) params.get("pid");
+		String pvid = (String) params.get("pvid");
+		String vid = (String) params.get("pvid");
+		String useamount = (String) params.get("useamount");
+		String ifuse;
+		
+		String regEx="[^0-9]";   
+		Pattern p = Pattern.compile(regEx);   
+		Matcher m = p.matcher(useamount);   
+		int count = Integer.valueOf(m.replaceAll("").trim());
+		
+		if(count > 0)
+			ifuse = "1";
+		else
+			ifuse = "0";
+		
+		parkVehicleService.adjustuse(pvid, pid, vid, count, ifuse);
+		logparkService.settotaluse(pid);
+//		int needpower = whGoodService.calneedpower(wid);
+//		warehouseService.setneedpower(wid, needpower);
+		
+		Map<String, Object> resultmap = new HashMap<>();
 		return resultmap;
 	}
 

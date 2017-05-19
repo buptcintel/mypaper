@@ -25,7 +25,7 @@
 			<result column="p_master" property="p_master" jdbcType="VARCHAR" />
 			<result column="p_contact" property="p_contact" jdbcType="VARCHAR" />
 			<result column="p_power" property="p_power" jdbcType="INTEGER" />
-			<result column="weight" property="weight" jdbcType="FLOAT" />
+			<result column="totaluse" property="totaluse" jdbcType="INTEGER" />
 		</association>
 	</resultMap>
 	

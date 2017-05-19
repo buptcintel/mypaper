@@ -10,8 +10,7 @@
   		<table id="vhtable" class="easyui-datagrid"></table>
   	</div>
   	<div style="height: 7%; margin-top: 8px;" align="center">
-		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" style="width:150px" onclick="setvh()">确定</a>
-  		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" style="width:150px" onclick="closewindow()">取消</a>
+		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" style="width:150px" onclick="closewindow()">确定</a>
   	</div>
   	<script type="text/javascript" src="<%=path%>/public/js/selectvehicle.js"></script>
 </body>
