@@ -103,6 +103,7 @@ function updatevpgrid(pvid, vid, useamount, availableamount){
 		            alert("系统异常，请刷新后重试...");  
 		        }  
 		    });  
+			
 	        return true;
 		}
     }

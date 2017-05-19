@@ -2,6 +2,7 @@ package com.bupt.xrf.dao.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
@@ -59,6 +60,56 @@ public class WhParkVehicleDaoImpl implements IWhParkVehicleDao {
 			session.close();
 		}
 		return whParkVehicles;
+	}
+
+	@Override
+	public void updateuseamount(Map<String, Object> params) {
+		SqlSession session = sessionFactory.openSession();	
+		try {
+			session.update("whparkvehicleModule.updateuseamount", params);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			session.close();
+		}
+	}
+
+	@Override
+	public void insertnewwpv(Map<String, Object> params) {
+		SqlSession session = sessionFactory.openSession();	
+		try {
+			session.insert("whparkvehicleModule.insertnewwpv", params);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			session.close();
+		}
+	}
+
+	@Override
+	public void deletewpv(Map<String, Object> params) {
+		SqlSession session = sessionFactory.openSession();	
+		try {
+			session.delete("whparkvehicleModule.deletewpv", params);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			session.close();
+		}
+	}
+
+	@Override
+	public int ifexistwpv(Map<String, Object> params) {
+		SqlSession session = sessionFactory.openSession();
+		int result = 0;
+		try {
+			result = session.selectOne("whparkvehicleModule.ifexistwpv", params);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return result;
 	}
 
 }

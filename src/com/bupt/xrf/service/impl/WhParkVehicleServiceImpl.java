@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,6 +44,49 @@ public class WhParkVehicleServiceImpl implements IWhParkVehicleService {
 	public List<WhParkVehicle> findalllogbywh(String wid) {
 		// TODO Auto-generated method stub
 		return whParkVehicleDao.findalllogbywh(wid);
+	}
+
+	@Override
+	public boolean ifexistwpv(String wid, String pid, String vid) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("wid", wid);
+		params.put("pid", pid);
+		params.put("vid", vid);
+		int number = whParkVehicleDao.ifexistwpv(params);
+		if(number == 0)
+			return false;
+		return true;
+	}
+
+	@Override
+	public void updateuseamount(String wid, String pid, String vid, int count) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("wid", wid);
+		params.put("pid", pid);
+		params.put("vid", vid);
+		params.put("count", count);
+		whParkVehicleDao.updateuseamount(params);
+	}
+
+	@Override
+	public void insertnewwpv(String wid, String pid, String vid, int count) {
+		Map<String, Object> params = new HashMap<>();
+		String wpvid = "w"+wid+"p"+pid+"v"+"vid";
+		params.put("wpvid", wpvid);
+		params.put("wid", wid);
+		params.put("pid", pid);
+		params.put("vid", vid);
+		params.put("count", count);
+		whParkVehicleDao.insertnewwpv(params);
+	}
+
+	@Override
+	public void deletewpv(String wid, String pid, String vid) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("wid", wid);
+		params.put("pid", pid);
+		params.put("vid", vid);
+		whParkVehicleDao.deletewpv(params);
 	}
 	
 }

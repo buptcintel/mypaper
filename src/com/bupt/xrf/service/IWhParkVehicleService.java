@@ -11,4 +11,12 @@ public interface IWhParkVehicleService {
 
 	public List<WhParkVehicle> findalllogbywh(String wid);
 
+	public boolean ifexistwpv(String wid, String pid, String vid);
+
+	public void updateuseamount(String wid, String pid, String vid, int count);
+
+	public void insertnewwpv(String wid, String pid, String vid, int count);
+
+	public void deletewpv(String wid, String pid, String vid);
+
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bupt.xrf.service.ILogparkService;
 import com.bupt.xrf.service.IParkVehicleService;
+import com.bupt.xrf.service.IWhParkVehicleService;
 
 @Controller("parkvehicleController")
 @RequestMapping("parkvehicle")
@@ -23,6 +24,9 @@ public class ParkVehicleController {
 	
 	@Autowired
 	private ILogparkService logparkService;
+	
+	@Autowired
+	private IWhParkVehicleService whParkVehicleService;
 	
 	@RequestMapping("/findvehiclebypk")
 	@ResponseBody
@@ -55,10 +59,21 @@ public class ParkVehicleController {
 		Matcher m = p.matcher(useamount);   
 		int count = Integer.valueOf(m.replaceAll("").trim());
 		
-		if(count > 0)
+		if(count > 0){
+			if(whParkVehicleService.ifexistwpv(wid, pid, vid)){
+				whParkVehicleService.updateuseamount(wid, pid, vid, count);
+			}
+			else{
+				whParkVehicleService.insertnewwpv(wid, pid, vid, count);
+			}
 			ifuse = "1";
-		else
+		}
+		else{
+			if(whParkVehicleService.ifexistwpv(wid, pid, vid)){
+				whParkVehicleService.deletewpv(wid, pid, vid);
+			}
 			ifuse = "0";
+		}
 		
 		parkVehicleService.adjustuse(pvid, pid, vid, count, ifuse);
 		logparkService.settotaluse(pid);
