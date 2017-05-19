@@ -151,39 +151,49 @@ function initlogparktable(){
 	
 }
 
-function createMarker(point,content,flag,totaluse){
-	var myIcon;
-	var title;
-	if(flag == 'wh'){
-		var myIcon = new BMap.Icon("/mypaper/img/warehouse_select.png", new BMap.Size(32, 32), {    //仓库
-			imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
-		  });
-		title = "仓储详细信息";
-	}
-	if(flag == 'lp'){
-		if(totaluse == '0'){
-			var myIcon = new BMap.Icon("/mypaper/img/logpark.png", new BMap.Size(32, 32), {    //仓库
-				imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
-			  });
-		}
-		else{
-			var myIcon = new BMap.Icon("/mypaper/img/logpark_select.png", new BMap.Size(32, 32), {    //仓库
-				imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
-			  });
-		}
-		title = "物流园区详细信息";
-	}
-	var opts = {
-			  width : 400,     // 信息窗口宽度
-			  height: 120,     // 信息窗口高度
-			  title : title 	// 信息窗口标题
-			}
-	var pointMarker = new BMap.Marker(point, {icon:myIcon});
-	map.addOverlay(pointMarker);
-	var infoWindow = new BMap.InfoWindow(content,opts);  // 创建信息窗口对象 
-	pointMarker.addEventListener("click", function(){          
-		map.openInfoWindow(infoWindow,point); //开启信息窗口
-	});
+function createMarker(point,content,flag,pid,wid){
+	$.ajax({  
+        type: "GET",  
+        url: "/mypaper/whparkvehicle/ifwhusepark",
+        data: {"wid":wid, "pid":pid},	//page和rows随意赋值，不影响  
+        success: function(data){  
+        	var myIcon;
+        	var title;
+        	if(data.ifuse == 0){
+    			myIcon = new BMap.Icon("/mypaper/img/logpark.png", new BMap.Size(32, 32), {    //仓库
+    				imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
+    			  });
+    		}
+    		else{
+    			myIcon = new BMap.Icon("/mypaper/img/logpark_select.png", new BMap.Size(32, 32), {    //仓库
+    				imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
+    			  });
+    		}
+        	if(flag == 'wh'){
+        		myIcon = new BMap.Icon("/mypaper/img/warehouse_select.png", new BMap.Size(32, 32), {    //仓库
+        			imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
+        		  });
+        		title = "仓储详细信息";
+        	}
+        	if(flag == 'lp'){
+        		title = "物流园区详细信息";
+        	}
+        	var opts = {
+        			  width : 400,     // 信息窗口宽度
+        			  height: 120,     // 信息窗口高度
+        			  title : title 	// 信息窗口标题
+        			}
+        	var pointMarker = new BMap.Marker(point, {icon:myIcon});
+        	map.addOverlay(pointMarker);
+        	var infoWindow = new BMap.InfoWindow(content,opts);  // 创建信息窗口对象 
+        	pointMarker.addEventListener("click", function(){          
+        		map.openInfoWindow(infoWindow,point); //开启信息窗口
+        	});
+        },  
+        error: function(data){  
+            alert("系统异常，请刷新后重试...");  
+        }  
+    });
 }
 
 var staticwid;
@@ -225,7 +235,7 @@ function select(wid, wcoordinate, tool){
 	            content = content + "<a href='javacript:void(0);' onclick='selectvehicle("+ "\""+data.rows[i].pid+ "\""+", " + "\""+tool+ "\""+", " + "\""+wid+ "\");'>查看详细信息</a>";
 	            content += "</div>";
 	            
-	        	createMarker(point, content, 'lp', data.rows[i].totaluse);
+	        	createMarker(point, content, 'lp', data.rows[i].pid, wid);
         	}
         },  
         error: function(data){  

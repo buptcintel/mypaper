@@ -71,7 +71,7 @@ public class WhParkVehicleServiceImpl implements IWhParkVehicleService {
 	@Override
 	public void insertnewwpv(String wid, String pid, String vid, int count) {
 		Map<String, Object> params = new HashMap<>();
-		String wpvid = "w"+wid+"p"+pid+"v"+"vid";
+		String wpvid = "w"+wid+"p"+pid+"v"+vid;
 		params.put("wpvid", wpvid);
 		params.put("wid", wid);
 		params.put("pid", pid);
@@ -87,6 +87,11 @@ public class WhParkVehicleServiceImpl implements IWhParkVehicleService {
 		params.put("pid", pid);
 		params.put("vid", vid);
 		whParkVehicleDao.deletewpv(params);
+	}
+
+	@Override
+	public int ifwhusepark(String wid, String pid) {
+		return whParkVehicleDao.ifwhusepark(wid, pid);
 	}
 	
 }

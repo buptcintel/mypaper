@@ -1,6 +1,7 @@
 package com.bupt.xrf.dao.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -47,21 +48,7 @@ public class WhParkVehicleDaoImpl implements IWhParkVehicleDao {
 		}
 		return result;
 	}
-
-	@Override
-	public List<WhParkVehicle> findalllogbywh(String wid) {
-		SqlSession session = sessionFactory.openSession();
-		List<WhParkVehicle> whParkVehicles = new ArrayList<>();
-		try {
-			whParkVehicles = session.selectList("whparkvehicleModule.findlogbywh", wid);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		} finally {
-			session.close();
-		}
-		return whParkVehicles;
-	}
-
+	
 	@Override
 	public void updateuseamount(Map<String, Object> params) {
 		SqlSession session = sessionFactory.openSession();	
@@ -104,6 +91,37 @@ public class WhParkVehicleDaoImpl implements IWhParkVehicleDao {
 		int result = 0;
 		try {
 			result = session.selectOne("whparkvehicleModule.ifexistwpv", params);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return result;
+	}
+
+	@Override
+	public List<WhParkVehicle> findalllogbywh(String wid) {
+		SqlSession session = sessionFactory.openSession();
+		List<WhParkVehicle> whParkVehicles = new ArrayList<>();
+		try {
+			whParkVehicles = session.selectList("whparkvehicleModule.findlogbywh", wid);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return whParkVehicles;
+	}
+
+	@Override
+	public int ifwhusepark(String wid, String pid) {
+		SqlSession session = sessionFactory.openSession();
+		Map<String, Object> params = new HashMap<>();
+		params.put("wid", wid);
+		params.put("pid", pid);
+		int result = 0;
+		try {
+			result = session.selectOne("whparkvehicleModule.ifwhusepark", params);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		} finally {

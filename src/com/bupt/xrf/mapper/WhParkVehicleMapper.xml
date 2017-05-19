@@ -45,7 +45,7 @@
 			on wpv.pid = p.pid
 			LEFT JOIN vehicle v
 			on wpv.vid = v.vid
-			where wpv.wid = #{wid}
+			where wpv.wid = #{wid} group by wpv.pid
 	</select>
 	
 	<select id="countfindlogbywh" resultType="int">
@@ -77,5 +77,9 @@
 		delete from warehouse_park_vehicle 
 		where wid=#{wid} and pid=#{pid} and vid=#{vid}
 	</delete>
+	
+	<select id="ifwhusepark" resultType="int">
+		select count(*) from warehouse_park_vehicle where wid = #{wid} and pid = #{pid}
+	</select>
 	
 </mapper>

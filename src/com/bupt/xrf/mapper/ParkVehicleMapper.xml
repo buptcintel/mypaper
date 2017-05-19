@@ -60,8 +60,8 @@
 	
 	<update id="adjustuse" parameterType="java.util.Map">
 		update park_vehicle
-		set ifuse = #{ifuse}, useamount = #{useamount}, availableamount = vamount-useamount
-    	where pvid = #{pvid} and pid = #{pid} and vid = #{vid}
+		set ifuse = #{ifuse}, useamount = #{useamount}, availableamount = availableamount-useamount
+    	where pvid = #{pvid}
 	</update>
 	
 </mapper>

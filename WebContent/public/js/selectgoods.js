@@ -117,8 +117,10 @@ function initradio(){
 }
 
 function updategrid(gwid, gid, usecount, amount){
+	usecount = usecount.substring(0,usecount.length-1);
+	amount = amount.substring(0,amount.length-1);
 	if(window.confirm('确定修改？')){
-		if(usecount > amount){
+		if(Number(usecount) > Number(amount)){
 			alert("可用量不足，请重新输入！")
 			$('#goodstable').datagrid('reload');
 			return false;

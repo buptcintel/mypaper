@@ -85,8 +85,10 @@ $(document).ready(function(){
 });
 
 function updatevpgrid(pvid, vid, useamount, availableamount){
+	useamount = useamount.substring(0,useamount.length-1);
+	availableamount = availableamount.substring(0,availableamount.length-1);
 	if(window.confirm('确定修改？')){
-		if(availableamount < useamount){
+		if(Number(availableamount) < Number(useamount)){
 			alert("可用量不足，请重新输入！");
 			$('#vhtable').datagrid('reload');
 			return false;

@@ -9,8 +9,6 @@ public interface IWhParkVehicleService {
 
 	public Map<String, Object> findlogbywh(int page, int rows, String wid);
 
-	public List<WhParkVehicle> findalllogbywh(String wid);
-
 	public boolean ifexistwpv(String wid, String pid, String vid);
 
 	public void updateuseamount(String wid, String pid, String vid, int count);
@@ -18,5 +16,9 @@ public interface IWhParkVehicleService {
 	public void insertnewwpv(String wid, String pid, String vid, int count);
 
 	public void deletewpv(String wid, String pid, String vid);
+
+	List<WhParkVehicle> findalllogbywh(String wid);
+
+	public int ifwhusepark(String wid, String pid);
 
 }

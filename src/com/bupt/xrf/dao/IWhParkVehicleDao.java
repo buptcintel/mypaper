@@ -11,8 +11,6 @@ public interface IWhParkVehicleDao {
 
 	public int countfindlogbywh(String wid);
 
-	public List<WhParkVehicle> findalllogbywh(String wid);
-
 	public void updateuseamount(Map<String, Object> params);
 
 	public void insertnewwpv(Map<String, Object> params);
@@ -20,6 +18,10 @@ public interface IWhParkVehicleDao {
 	public void deletewpv(Map<String, Object> params);
 
 	public int ifexistwpv(Map<String, Object> params);
+
+	public List<WhParkVehicle> findalllogbywh(String wid);
+
+	public int ifwhusepark(String wid, String pid);
 
 	
 }
