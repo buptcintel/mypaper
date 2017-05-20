@@ -50,10 +50,10 @@ public class ParkVehicleController {
 		String wid = (String) params.get("wid");
 		String pid = (String) params.get("pid");
 		String pvid = (String) params.get("pvid");
-		String vid = (String) params.get("pvid");
+		String vid = (String) params.get("vid");
 		String useamount = (String) params.get("useamount");
 		String ifuse;
-		
+
 		String regEx="[^0-9]";   
 		Pattern p = Pattern.compile(regEx);   
 		Matcher m = p.matcher(useamount);   

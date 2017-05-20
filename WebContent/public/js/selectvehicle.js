@@ -121,6 +121,7 @@ function updatevpgrid(pvid, vid, useamount, availableamount){
 }
 
 function closewindow(){
+	$('#selectlog').datagrid('reload');
 	$('#selectvehicle').window('close', true);
 	if(statictool){
 		map.clearOverlays();
