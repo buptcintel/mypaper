@@ -82,4 +82,9 @@
 		select count(*) from warehouse_park_vehicle where wid = #{wid} and pid = #{pid}
 	</select>
 	
+	<select id="caluseamountbywhandpark" resultType="int">
+		select sum(useamount*v_power) from warehouse_park_vehicle, vehicle 
+		where warehouse_park_vehicle.vid = vehicle.vid and wid = #{wid} and pid = #{pid}
+	</select>
+	
 </mapper>

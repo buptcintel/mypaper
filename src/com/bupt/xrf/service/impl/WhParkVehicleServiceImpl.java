@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,10 +27,11 @@ public class WhParkVehicleServiceImpl implements IWhParkVehicleService {
 			Map<String, Object> resulttmp = new HashMap<String, Object>();
 			resulttmp.put("pid", tmp.getLogpark().getPid());
 			resulttmp.put("p_name", tmp.getLogpark().getP_name());
-			//resulttmp.put("usecount", tmp.getUsepower()+"kg");
 			resulttmp.put("p_master", tmp.getLogpark().getP_master());
 			resulttmp.put("p_contact", tmp.getLogpark().getP_contact());
 			resulttmp.put("tool", tmp.getWarehouse().getTool());
+			int useamount = whParkVehicleDao.caluseamountbywhandpark(wid, tmp.getLogpark().getPid());
+			resulttmp.put("useamount", useamount+"kg");
 			res.add(resulttmp);
 		}
 		

@@ -130,4 +130,21 @@ public class WhParkVehicleDaoImpl implements IWhParkVehicleDao {
 		return result;
 	}
 
+	@Override
+	public int caluseamountbywhandpark(String wid, String pid) {
+		SqlSession session = sessionFactory.openSession();
+		Map<String, Object> params = new HashMap<>();
+		params.put("wid", wid);
+		params.put("pid", pid);
+		int result = 0;
+		try {
+			result = session.selectOne("whparkvehicleModule.caluseamountbywhandpark", params);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return result;
+	}
+
 }

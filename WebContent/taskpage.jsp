@@ -24,10 +24,10 @@
   		<div style="width: 98%;height: 30%;margin-left: 5px;margin-top: 5px;">
   			<table id="goodtg" class="easyui-datagrid"></table>
   		</div>
-  		<div style="width: 98%;height: 30%;margin-left: 5px;margin-top: 10px;">
+  		<div style="width: 98%;height: 30%;margin-left: 5px;margin-top: 5px;">
   			<table id="warehousetg" class="easyui-datagrid"></table>
   		</div>
-  		<div style="width: 98%;height: 30%;margin-left: 5px;margin-top: 10px;">
+  		<div style="width: 98%;height: 32%;margin-left: 5px;margin-top: 5px;">
   			<table id="logistictg" class="easyui-datagrid"></table>
   		</div>
   	</div>

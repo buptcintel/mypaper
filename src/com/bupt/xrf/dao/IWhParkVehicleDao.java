@@ -23,5 +23,7 @@ public interface IWhParkVehicleDao {
 
 	public int ifwhusepark(String wid, String pid);
 
+	public int caluseamountbywhandpark(String wid, String pid);
+
 	
 }

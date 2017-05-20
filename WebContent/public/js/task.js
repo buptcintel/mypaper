@@ -97,8 +97,8 @@ function initlogtable(){
 	$('#logistictg').datagrid({
 		url:'/mypaper/logpark/selectedpk',
 		title:'出救物流园区表',
-		pageSize: 4,  
-        pageList: [4, 8, 12],  
+		pageSize: 5,  
+        pageList: [5, 10, 15],  
         height: '100%',
 		iconCls:'icon-save',
 		striped:true,
