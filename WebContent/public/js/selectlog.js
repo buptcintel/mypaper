@@ -110,7 +110,7 @@ function initlogparktable(){
             formatter:function(value,rowData,rowIndex){
                 //function里面的三个参数代表当前字段值，当前行数据对象，行号（行号从0开始
             	//可以查看该物流园区的所有运输工具
-                return "<a href='javacript:void(0);' onclick='selectvehicle("+ "\""+rowData.pid+ "\""+", " + "\""+tool+ "\""+", " + "\""+tool+ "\");'>查看</a>";
+                return "<a href='javacript:void(0);' onclick='selectvehicle("+rowData.pid+");'>查看</a>";
            }  
         }
 		]],
@@ -159,16 +159,6 @@ function createMarker(point,content,flag,pid,wid){
         success: function(data){  
         	var myIcon;
         	var title;
-        	if(data.ifuse == 0){
-    			myIcon = new BMap.Icon("/mypaper/img/logpark.png", new BMap.Size(32, 32), {    //仓库
-    				imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
-    			  });
-    		}
-    		else{
-    			myIcon = new BMap.Icon("/mypaper/img/logpark_select.png", new BMap.Size(32, 32), {    //仓库
-    				imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
-    			  });
-    		}
         	if(flag == 'wh'){
         		myIcon = new BMap.Icon("/mypaper/img/warehouse_select.png", new BMap.Size(32, 32), {    //仓库
         			imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
@@ -176,6 +166,16 @@ function createMarker(point,content,flag,pid,wid){
         		title = "仓储详细信息";
         	}
         	if(flag == 'lp'){
+        		if(data.ifuse == 0){
+        			myIcon = new BMap.Icon("/mypaper/img/logpark.png", new BMap.Size(32, 32), {    //仓库
+        				imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
+        			  });
+        		}
+        		else{
+        			myIcon = new BMap.Icon("/mypaper/img/logpark_select.png", new BMap.Size(32, 32), {    //仓库
+        				imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
+        			  });
+        		}
         		title = "物流园区详细信息";
         	}
         	var opts = {
@@ -211,11 +211,32 @@ function showgoods(wid){
 
 var staticwcoordinate;
 function select(wid, wcoordinate, tool){
+	map.clearOverlays();
 	statictool = tool;
 	staticwcoordinate = wcoordinate;
 	var result = wcoordinate.split(",");
 	var point = new BMap.Point(result[0], result[1]);
 	map.centerAndZoom(point, 14);
+	
+	$.ajax({  
+        type: "POST",  
+        url: "/mypaper/warehouse/findbywid",
+        data: {"wid":wid},	//page和rows随意赋值，不影响  
+        success: function(data){  
+        	var content = "<div>";  
+            content = content + "名称：" + data.warehouse.wname +"</br>";  
+            content = content + "详细地址：" + data.warehouse.location + "</br>"; 
+            content = content + "联系人：" + data.warehouse.contact + "</br>"; 
+            content = content + "联系方式：" + data.warehouse.number + "</br>"; 
+            content = content + "<a href='javacript:void(0);' onclick='showgoods("+data.warehouse.wid+");'>查看出救物资</a>";
+            content += "</div>";
+            
+            createMarker(point,content,'wh');
+        },  
+        error: function(data){  
+            alert("系统异常，请刷新后重试...");  
+        }  
+    });
 	
 	$.ajax({  
         type: "POST",  

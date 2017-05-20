@@ -77,8 +77,13 @@ $(document).ready(function(){
 			var rowData = data.rows;  
             $.each(rowData,function(idx,val){//遍历JSON  
                   if(val.ifuse=='1'){  
-                    $("#vhtable").datagrid("selectRow", idx);//如果数据行为已选中则选中改行  
+                	  $("#vhtable").datagrid("selectRow", idx);//如果数据行为已选中则选中改行  
                   }  
+                  //从表格点进来的不可以编辑，只可以查看
+                  if(!statictool){
+	                  var e = $("#vhtable").datagrid('getColumnOption', 'useamount');
+	                  e.editor = {};
+                  }
             });
 		}
 	});
@@ -117,7 +122,9 @@ function updatevpgrid(pvid, vid, useamount, availableamount){
 
 function closewindow(){
 	$('#selectvehicle').window('close', true);
-	map.clearOverlays();
-	freshmap();
-	select(staticwid, staticwcoordinate, statictool);
+	if(statictool){
+		map.clearOverlays();
+		freshmap();
+		select(staticwid, staticwcoordinate, statictool);
+	}
 }

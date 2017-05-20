@@ -21,7 +21,7 @@
 	</resultMap>
 	
 	<select id="findbypage" resultMap="LogparkResultMap">
-		select * from logpark ORDER BY 'totaluse' DESC
+		select * from logpark ORDER BY totaluse DESC
 	</select>
 	
 	<select id="countall" resultType="int">

@@ -77,9 +77,7 @@ public class ParkVehicleController {
 		
 		parkVehicleService.adjustuse(pvid, pid, vid, count, ifuse);
 		logparkService.settotaluse(pid);
-//		int needpower = whGoodService.calneedpower(wid);
-//		warehouseService.setneedpower(wid, needpower);
-		
+
 		Map<String, Object> resultmap = new HashMap<>();
 		return resultmap;
 	}
