@@ -96,4 +96,33 @@ public class ParkVehicleDaoImpl implements IParkVehicleDao {
 		}
 	}
 
+	@Override
+	public List<ParkVehicle> findusedvehiclebypk(int page, int rows, String pid) {
+		SqlSession session = sessionFactory.openSession();
+		List<ParkVehicle> parkVehicles = new ArrayList<>();
+		RowBounds rowBounds = new RowBounds((page-1)*rows, rows);
+		try {
+			parkVehicles = session.selectList("parkvehicleModule.findusedvehiclebypk", pid, rowBounds);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return parkVehicles;
+	}
+
+	@Override
+	public int countfindusedvehiclebypk(String pid) {
+		SqlSession session = sessionFactory.openSession();
+		int result = 0;
+		try {
+			result = session.selectOne("parkvehicleModule.countfindusedvehiclebypk", pid);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return result;
+	}
+
 }

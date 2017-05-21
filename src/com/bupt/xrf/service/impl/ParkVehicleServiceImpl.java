@@ -87,4 +87,27 @@ public class ParkVehicleServiceImpl implements IParkVehicleService {
 		parkVehicleDao.adjustuse(params);
 	}
 
+	@Override
+	public Map<String, Object> findusedvehiclebypk(int page, int rows, String pid) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		List<Map<String, Object>> res = new ArrayList<Map<String, Object>>();
+		List<ParkVehicle> parkVehicles = parkVehicleDao.findusedvehiclebypk(page, rows, pid);
+		for (ParkVehicle tmp : parkVehicles) {
+
+			Map<String, Object> resulttmp = new HashMap<String, Object>();
+			resulttmp.put("pvid", tmp.getPvid());
+			resulttmp.put("pid", tmp.getLogpark().getPid());
+			resulttmp.put("vid", tmp.getVehicle().getVid());
+			resulttmp.put("v_power", tmp.getVehicle().getV_power());
+			resulttmp.put("v_name", tmp.getVehicle().getV_name());
+			resulttmp.put("useamount", tmp.getUseamount()+tmp.getVehicle().getV_unit());
+			resulttmp.put("v_cost", tmp.getVehicle().getV_cost());
+			res.add(resulttmp);
+		}
+		
+		result.put("total", parkVehicleDao.countfindusedvehiclebypk(pid));
+		result.put("rows", res);
+		return result;
+	}
+
 }

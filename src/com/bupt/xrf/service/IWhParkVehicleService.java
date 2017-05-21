@@ -21,4 +21,8 @@ public interface IWhParkVehicleService {
 
 	public int ifwhusepark(String wid, String pid);
 
+	public Map<String, Object> findwhbypk(int page, int rows, String pid);
+
+	public List<WhParkVehicle> findallwhbypk(String pid);
+
 }

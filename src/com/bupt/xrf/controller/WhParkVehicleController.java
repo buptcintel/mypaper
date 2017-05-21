@@ -46,5 +46,20 @@ public class WhParkVehicleController {
 
 		return resultmap;
 	}
+	
+	@RequestMapping("/findwhbypk")
+	@ResponseBody
+	public Map<String, Object> findwhbypk(@RequestParam Map<String, Object> params){
+		String page = (String) params.get("page");
+		String rows = (String) params.get("rows");
+		String pid = (String) params.get("pid");
+		Map<String, Object> resultmap = new HashMap<>();
+		
+		resultmap = whParkVehicleService.findwhbypk(Integer.valueOf(page), Integer.valueOf(rows),pid);
+
+		List<WhParkVehicle> whParkVehicles = whParkVehicleService.findallwhbypk(pid);
+		resultmap.put("all", whParkVehicles);
+		return resultmap;
+	}
 
 }

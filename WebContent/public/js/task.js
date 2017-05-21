@@ -309,8 +309,17 @@ function createMarkerandDraw(wid, wcoordinate, content, pcoordinate, tool){
 	map.addOverlay(polyline);
 }
 
-function showloginfo(){
-	
+var staticpid;
+function showloginfo(pid){
+	staticpid = pid;
+	var url = "loginfo.jsp";
+	var options = {
+			title:"物流园区出救详情",
+			href: url,
+			width:800,
+			height:400
+		};
+	$("#loginfo").window(options);
 }
 
 function showlogmap(){

@@ -40,7 +40,7 @@
   	
   	<div id="goodsinfo" modal="true" shadow="false" minimizable="false" cache="false" maximizable="false" collapsible="false" resizable="false"  style="margin: 0px;padding: 0px;overflow: auto;"></div>
   	<div id="whinfo" modal="true" shadow="false" minimizable="false" cache="false" maximizable="false" collapsible="false" resizable="false"  style="margin: 0px;padding: 0px;overflow: auto;"></div>
-  	<div id="parkinfo" modal="true" shadow="false" minimizable="false" cache="false" maximizable="false" collapsible="false" resizable="false"  style="margin: 0px;padding: 0px;overflow: auto;"></div>
+  	<div id="loginfo" modal="true" shadow="false" minimizable="false" cache="false" maximizable="false" collapsible="false" resizable="false"  style="margin: 0px;padding: 0px;overflow: auto;"></div>
   	<!-- <div id="selectgoods" modal="true" shadow="false" minimizable="false" cache="false" maximizable="false" collapsible="false" resizable="false"  style="margin: 0px;padding: 0px;overflow: auto;"></div> -->
 </body>
 </html>

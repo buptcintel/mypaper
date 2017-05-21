@@ -81,5 +81,19 @@ public class ParkVehicleController {
 		Map<String, Object> resultmap = new HashMap<>();
 		return resultmap;
 	}
+	
+	@RequestMapping("/findusedvehiclebypk")
+	@ResponseBody
+	public Map<String, Object> findusedvehiclebypk(@RequestParam Map<String,Object> params){		
+		String page = (String) params.get("page");
+		String rows = (String) params.get("rows");
+		String pid = (String) params.get("pid");
+		
+		Map<String, Object> resultmap = new HashMap<>();
+		
+		resultmap = parkVehicleService.findusedvehiclebypk(Integer.valueOf(page), Integer.valueOf(rows), pid);
+		
+		return resultmap;
+	}
 
 }

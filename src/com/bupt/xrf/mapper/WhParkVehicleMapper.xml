@@ -37,7 +37,6 @@
 		</association>
 	</resultMap>
 	
-	<!-- 有问题 -->
 	<select id="findlogbywh" resultMap="WhParkVehicleResultMap">
 		select * from warehouse_park_vehicle wpv LEFT JOIN warehouse w
 			on wpv.wid = w.wid
@@ -85,6 +84,20 @@
 	<select id="caluseamountbywhandpark" resultType="int">
 		select sum(useamount*v_power) from warehouse_park_vehicle, vehicle 
 		where warehouse_park_vehicle.vid = vehicle.vid and wid = #{wid} and pid = #{pid}
+	</select>
+	
+	<select id="findwhbypk" resultMap="WhParkVehicleResultMap">
+		select * from warehouse_park_vehicle wpv LEFT JOIN warehouse w
+			on wpv.wid = w.wid
+			LEFT JOIN logpark p
+			on wpv.pid = p.pid
+			LEFT JOIN vehicle v
+			on wpv.vid = v.vid
+			where wpv.pid = #{pid} group by wpv.wid
+	</select>
+	
+	<select id="countfindwhbypk" resultType="int">
+		select count(distinct(wid)) from warehouse_park_vehicle where pid = #{pid}
 	</select>
 	
 </mapper>

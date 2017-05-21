@@ -93,5 +93,33 @@ public class WhParkVehicleServiceImpl implements IWhParkVehicleService {
 	public int ifwhusepark(String wid, String pid) {
 		return whParkVehicleDao.ifwhusepark(wid, pid);
 	}
+
+	@Override
+	public Map<String, Object> findwhbypk(int page, int rows, String pid) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		List<Map<String, Object>> res = new ArrayList<Map<String, Object>>();
+		List<WhParkVehicle> whParkVehicles = whParkVehicleDao.findwhbypk(page, rows, pid);
+		for (WhParkVehicle tmp : whParkVehicles) {
+			Map<String, Object> resulttmp = new HashMap<String, Object>();
+			resulttmp.put("wid", tmp.getWarehouse().getWid());
+			resulttmp.put("w_name", tmp.getWarehouse().getWname());
+			resulttmp.put("w_type", tmp.getWarehouse().getType());
+			resulttmp.put("w_contact", tmp.getWarehouse().getContact());
+			resulttmp.put("w_number", tmp.getWarehouse().getNumber());
+			int usepower = whParkVehicleDao.caluseamountbywhandpark(pid, tmp.getLogpark().getPid());
+			resulttmp.put("usepower", usepower+"kg");
+			res.add(resulttmp);
+		}
+		
+		result.put("total", whParkVehicleDao.countfindwhbypk(pid));
+		result.put("rows", res);
+		return result;
+	}
+
+	@Override
+	public List<WhParkVehicle> findallwhbypk(String pid) {
+		// TODO Auto-generated method stub
+		return whParkVehicleDao.findallwhbypk(pid);
+	}
 	
 }

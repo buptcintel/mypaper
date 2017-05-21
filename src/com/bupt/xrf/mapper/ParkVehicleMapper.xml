@@ -64,4 +64,16 @@
     	where pvid = #{pvid}
 	</update>
 	
+	<select id="findusedvehiclebypk" resultMap="ParkVehicleResultMap">
+		select * from park_vehicle pv LEFT JOIN logpark p
+			on pv.pid = p.pid
+			LEFT JOIN vehicle v
+			on pv.vid = v.vid
+			where pv.pid = #{pid} and ifuse = '1';
+	</select>
+	
+	<select id="countfindusedvehiclebypk" resultType="int">
+		select count(*) from park_vehicle where pid = #{pid} and ifuse = '1';
+	</select>
+	
 </mapper>

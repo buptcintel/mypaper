@@ -10,4 +10,6 @@ public interface IParkVehicleService {
 
 	public void adjustuse(String pvid, String pid, String vid, int count, String ifuse);
 
+	public Map<String, Object> findusedvehiclebypk(int page, int rows, String pid);
+
 }

@@ -17,4 +17,8 @@ public interface IParkVehicleDao {
 
 	public void adjustuse(Map<String, Object> params);
 
+	public List<ParkVehicle> findusedvehiclebypk(int page, int rows, String pid);
+
+	public int countfindusedvehiclebypk(String pid);
+
 }

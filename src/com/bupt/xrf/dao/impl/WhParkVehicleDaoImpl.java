@@ -147,4 +147,47 @@ public class WhParkVehicleDaoImpl implements IWhParkVehicleDao {
 		return result;
 	}
 
+	@Override
+	public List<WhParkVehicle> findwhbypk(int page, int rows, String pid) {
+		SqlSession session = sessionFactory.openSession();
+		List<WhParkVehicle> whParkVehicles = new ArrayList<>();
+		RowBounds rowBounds = new RowBounds((page-1)*rows, rows);
+		try {
+			whParkVehicles = session.selectList("whparkvehicleModule.findwhbypk", pid, rowBounds);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return whParkVehicles;
+	}
+
+	@Override
+	public int countfindwhbypk(String pid) {
+		SqlSession session = sessionFactory.openSession();
+		int result = 0;
+		try {
+			result = session.selectOne("whparkvehicleModule.countfindwhbypk", pid);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return result;
+	}
+
+	@Override
+	public List<WhParkVehicle> findallwhbypk(String pid) {
+		SqlSession session = sessionFactory.openSession();
+		List<WhParkVehicle> whParkVehicles = new ArrayList<>();
+		try {
+			whParkVehicles = session.selectList("whparkvehicleModule.findwhbypk", pid);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return whParkVehicles;
+	}
+
 }

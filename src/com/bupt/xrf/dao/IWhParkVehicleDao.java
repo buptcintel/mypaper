@@ -25,5 +25,11 @@ public interface IWhParkVehicleDao {
 
 	public int caluseamountbywhandpark(String wid, String pid);
 
+	public List<WhParkVehicle> findwhbypk(int page, int rows, String pid);
+
+	public int countfindwhbypk(String pid);
+
+	public List<WhParkVehicle> findallwhbypk(String pid);
+
 	
 }
