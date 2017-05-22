@@ -13,6 +13,7 @@ public class Idealpoints {
 	
 	private DistanceUtil distanceUtil = new DistanceUtil();
 	private Sortwhbytimeasc sortwhbytimeasc = new Sortwhbytimeasc();
+	private Sortwhbycostasc sortwhbycostasc = new Sortwhbycostasc();
 	
 	private List<Warehouse> warehouses = null;
 	private List<WhGood> whGoods = null;
@@ -33,17 +34,16 @@ public class Idealpoints {
 	}
 	
 	public void algorithmformintime() {
-		Tmin = getMintime();
-//		for (WhGood tmp : whGoods) {
-//			if(tmp.getIfuse().equals("1"))
-//				System.out.println(tmp);
-//		}
+		getMintimeorMinAndMaxcost("Tmin");
+		System.out.println(Tmin);
+		System.out.println(Cmin);
+	}
+	public void algorithmformincost() {
+		getMintimeorMinAndMaxcost("Cmin");
+		System.out.println(Tmin);
+		System.out.println(Cmin);
 	}
 	
-	public List<Warehouse> algorithm(){
-		Collections.sort(newwh, sortwhbytimeasc);
-		return null;
-	}
 	
 	public void adjustWh(List<Warehouse> warehouses, int time){
 		Iterator<Warehouse> iterator = warehouses.iterator();
@@ -73,6 +73,7 @@ public class Idealpoints {
 				Warehouse warehouse = new Warehouse();
 				warehouse.setWid(tmp.getWid());			
 				warehouse.setTimetoarrive(distanceUtil.GetDistance(lon, lat, 103.048991, 30.016365)*60/60);
+				warehouse.setTotalunitcost(tmp.getUnitcost()+0.6);
 				warehouse.setTool("汽车");
 				newwh.add(warehouse);
 			}
@@ -80,6 +81,7 @@ public class Idealpoints {
 				Warehouse warehouse = new Warehouse();
 				warehouse.setWid(tmp.getWid());			
 				warehouse.setTimetoarrive(distanceUtil.GetDistance(lon, lat, 103.048991, 30.016365)*60/80);
+				warehouse.setTotalunitcost(tmp.getUnitcost()+0.8);
 				warehouse.setTool("火车");
 				newwh.add(warehouse);		
 			}
@@ -87,15 +89,18 @@ public class Idealpoints {
 				Warehouse warehouse = new Warehouse();
 				warehouse.setWid(tmp.getWid());			
 				warehouse.setTimetoarrive(distanceUtil.GetDistance(lon, lat, 103.048991, 30.016365)*60/500);
+				warehouse.setTotalunitcost(tmp.getUnitcost()+1.5);
 				warehouse.setTool("飞机");
 				newwh.add(warehouse);
 			}
 		}
 	}
 	
-	public double getMintime(){
-		double min = 0;
-		Collections.sort(newwh, sortwhbytimeasc);
+	public void getMintimeorMinAndMaxcost(String type){
+		if(type.equals("Tmin"))
+			Collections.sort(newwh, sortwhbytimeasc);
+		if(type.equals("Cmin"))
+			Collections.sort(newwh, sortwhbycostasc);
 		List<String> result = new ArrayList<>();
 		List<ReqGood> curgoods = freshcurgoods();
 		int i = 0;
@@ -117,7 +122,7 @@ public class Idealpoints {
 						curgoods.get(k).setAmount(afteradd+"");
 						setgoodbywh(wh, reqGood, Math.min(hasamount, needamount-curamount));
 						flag = true;
-						min = Math.max(wh.getTimetoarrive(), min);
+						Tmin = Math.max(wh.getTimetoarrive(), Tmin);
 					}
 				}
 			}
@@ -132,7 +137,6 @@ public class Idealpoints {
 				i = 0;
 			}
 		}
-		return min;
 	}
 	
 	public double getMaxtime(){
@@ -146,11 +150,11 @@ public class Idealpoints {
 		return max;
 	}
 	
-	public int getMincost(List<Warehouse> warehouses, List<WhGood> whGoods){
+	public int getMincost(){
 		return 0;
 	}
 	
-	public int getMaxcost(List<Warehouse> warehouses, List<WhGood> whGoods){
+	public int getMaxcost(){
 		return 0;
 	}
 	
@@ -189,6 +193,7 @@ public class Idealpoints {
 				warehouse.setFlag("1");
 				warehouse.setTool(wh.getTool());
 				warehouse.setTimetoarrive(wh.getTimetoarrive());
+				warehouse.setTotalunitcost(wh.getTotalunitcost());
 			}
 		}
 	}

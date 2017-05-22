@@ -8,9 +8,9 @@ public class Sortwhbycostasc implements Comparator<Warehouse> {
 
 	@Override
 	public int compare(Warehouse o1, Warehouse o2) {
-		if(o1.getUnitcost() > o2.getUnitcost())
+		if(o1.getTotalunitcost() > o2.getTotalunitcost())
 			return 1;
-		else if(o1.getUnitcost() < o2.getUnitcost())
+		else if(o1.getTotalunitcost() < o2.getTotalunitcost())
 			return -1;
 		else	
 			return 0;

@@ -15,7 +15,8 @@
 		<result column="flag" property="flag" jdbcType="VARCHAR" />
 		<result column="needpower" property="needpower" jdbcType="INTEGER" />
 		<result column="tool" property="tool" jdbcType="VARCHAR" />
-		<result column="unitcost" property="unitcost" jdbcType="INTEGER" />
+		<result column="unitcost" property="unitcost" jdbcType="DOUBLE" />
+		<result column="totalunitcost" property="totalunitcost" jdbcType="DOUBLE" />
 		<result column="timetoarrive" property="timetoarrive" jdbcType="DOUBLE" />
 	</resultMap>
 	
@@ -41,6 +42,9 @@
 			</if>
 			<if test="timetoarrive != null" >  
 			    timetoarrive = #{timetoarrive},  
+			</if>
+			<if test="totalunitcost != null" >  
+			    totalunitcost = #{totalunitcost},  
 			</if>
 	  	</set>  
     	where wid = #{wid}

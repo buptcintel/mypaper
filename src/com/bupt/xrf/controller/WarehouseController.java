@@ -47,7 +47,7 @@ public class WarehouseController {
 			whgoodService.adjustuse(tmp.getGwid(), tmp.getWarehouse().getWid(), tmp.getGood().getGid(), 0, "0");
 		}
 		for(Warehouse warehouse : warehouses){
-			warehouseService.adjustwarehouse(warehouse.getWid(), "0", "0", 0);
+			warehouseService.adjustwarehouse(warehouse.getWid(), "0", "0", 0, 0);
 			warehouseService.setneedpower(warehouse.getWid(), 0);
 		}
 		
@@ -60,7 +60,7 @@ public class WarehouseController {
 		}
 		else if(plan.equals("1")){
 			Idealpoints idealpoints = new Idealpoints(warehouses, whGoods, reqGoods);
-			idealpoints.algorithmformintime();
+			idealpoints.algorithmformincost();
 		}
 		else{
 			Idealpoints idealpoints = new Idealpoints(warehouses, whGoods, reqGoods);
@@ -74,7 +74,7 @@ public class WarehouseController {
 		}
 		for(Warehouse warehouse : warehouses){
 			if(warehouse.getFlag().equals("1")){
-				warehouseService.adjustwarehouse(warehouse.getWid(), "1", warehouse.getTool(), warehouse.getTimetoarrive());
+				warehouseService.adjustwarehouse(warehouse.getWid(), "1", warehouse.getTool(), warehouse.getTimetoarrive(), warehouse.getTotalunitcost());
 				int needpower = whgoodService.calneedpower(warehouse.getWid());
 				warehouseService.setneedpower(warehouse.getWid(), needpower);
 			}
@@ -122,22 +122,26 @@ public class WarehouseController {
 		Boolean ifusewh = whgoodService.ifusewh(wid);
 		if(ifusewh == true){
 			int speed = 0;
+			double vcost = 0;
 			Warehouse warehouse = (Warehouse) warehouseService.findbywid(wid).get("warehouse");
 			String[] tmp = warehouse.getCoordinate().split(",");
 			double distance = distanceUtil.GetDistance(Double.valueOf(tmp[0]), Double.valueOf(tmp[1]), 103.048991, 30.016365);
 			if(tool.equals("汽车")){
 				speed = 60;
+				vcost = 0.6;
 			}
 			if(tool.equals("火车")){
 				speed = 80;
+				vcost = 0.8;
 			}
 			if(tool.equals("飞机")){
 				speed = 500;
+				vcost = 1.5;
 			}
-			warehouseService.adjustwarehouse(wid, "1", tool, distance/speed);
+			warehouseService.adjustwarehouse(wid, "1", tool, distance/speed, warehouse.getUnitcost());
 		}
 		else
-			warehouseService.adjustwarehouse(wid, "0", "0", 0);
+			warehouseService.adjustwarehouse(wid, "0", "0", 0, 0);
 		
 		Map<String, Object> resultmap = new HashMap<>();	
 		return resultmap;

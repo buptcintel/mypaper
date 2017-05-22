@@ -307,17 +307,17 @@ function createMarkerandDraw(wid, wcoordinate, content, pcoordinate, tool, type)
 	//画线和运输工具
 	var myIcon2;
 	if(tool == "汽车"){
-		var myIcon2 = new BMap.Icon("/mypaper/img/car.png", new BMap.Size(32, 32), {    //仓库
+		myIcon2 = new BMap.Icon("/mypaper/img/car.png", new BMap.Size(32, 32), {    //仓库
 			imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
 		  });
 	}
 	if(tool == "火车"){
-		var myIcon2 = new BMap.Icon("/mypaper/img/train.png", new BMap.Size(32, 32), {    //仓库
+		myIcon2 = new BMap.Icon("/mypaper/img/train.png", new BMap.Size(32, 32), {    //仓库
 			imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
 		  });
 	}
 	if(tool == "飞机"){
-		var myIcon2 = new BMap.Icon("/mypaper/img/plane.png", new BMap.Size(32, 32), {    //仓库
+		myIcon2 = new BMap.Icon("/mypaper/img/plane.png", new BMap.Size(32, 32), {    //仓库
 			imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
 		  });
 	}

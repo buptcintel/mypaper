@@ -14,7 +14,8 @@ public class Warehouse {
 	private String flag;	//标示仓储是否被选中
 	private String needpower;
 	private String tool;
-	private int unitcost;
+	private double unitcost;
+	private double totalunitcost;
 	private double timetoarrive;
 	
 	public String getWid() {
@@ -89,23 +90,30 @@ public class Warehouse {
 	public void setTool(String tool) {
 		this.tool = tool;
 	}
-	public int getUnitcost() {
-		return unitcost;
-	}
-	public void setUnitcost(int unitcost) {
-		this.unitcost = unitcost;
-	}
 	public double getTimetoarrive() {
 		return timetoarrive;
 	}
 	public void setTimetoarrive(double timetoarrive) {
 		this.timetoarrive = timetoarrive;
 	}
+	public double getUnitcost() {
+		return unitcost;
+	}
+	public void setUnitcost(double unitcost) {
+		this.unitcost = unitcost;
+	}
+	public double getTotalunitcost() {
+		return totalunitcost;
+	}
+	public void setTotalunitcost(double totalunitcost) {
+		this.totalunitcost = totalunitcost;
+	}
 	@Override
 	public String toString() {
 		return "Warehouse [wid=" + wid + ", wname=" + wname + ", coordinate=" + coordinate + ", location=" + location
 				+ ", type=" + type + ", ascription=" + ascription + ", contact=" + contact + ", number=" + number
 				+ ", transportation=" + transportation + ", flag=" + flag + ", needpower=" + needpower + ", tool="
-				+ tool + ", unitcost=" + unitcost + ", timetoarrive=" + timetoarrive + "]";
+				+ tool + ", unitcost=" + unitcost + ", totalunitcost=" + totalunitcost + ", timetoarrive="
+				+ timetoarrive + "]";
 	}
 }

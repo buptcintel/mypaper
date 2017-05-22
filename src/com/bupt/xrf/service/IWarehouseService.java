@@ -11,7 +11,7 @@ public interface IWarehouseService {
 	
 	public List<Warehouse> findall();
 
-	public void adjustwarehouse(String wid, String flag, String tool, double timetoarrive);
+	public void adjustwarehouse(String wid, String flag, String tool, double timetoarrive, double cost);
 
 	public Map<String, Object> selectedwh(int page, int rows);
 	

@@ -32,11 +32,12 @@ public class WarehouseServiceImpl implements IWarehouseService {
 	}
 
 	@Override
-	public void adjustwarehouse(String wid, String flag, String tool, double timttoarrive) {
+	public void adjustwarehouse(String wid, String flag, String tool, double timttoarrive, double totalunitcost) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("wid", wid);
 		params.put("flag", flag);
 		params.put("tool", tool);
+		params.put("totalunitcost", totalunitcost);
 		String tmp = String.format("%.2f", timttoarrive);
 		params.put("timetoarrive", Double.valueOf(tmp));
 		warehouseDao.adjustwarehouse(params);
