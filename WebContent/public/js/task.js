@@ -400,6 +400,19 @@ function showlogmap(pid, pcoordinate){
     });
 }
 
+function exportfile(){
+	$.ajax({  
+        type: "POST",  
+        url: "/mypaper/task/download",
+        success: function(data){  
+        	alert("yes");  
+        },  
+        error: function(data){  
+            alert("系统异常，请刷新后重试...");  
+        }  
+    });
+}
+
 function reset(){
 	window.location.href = "selectlog.jsp"
 }

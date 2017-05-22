@@ -20,6 +20,7 @@
   	<div region="east" style="width:30%; margin-top: 5px;">
 	  	<div align="center" style="margin-top: 5px;">
 	  		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" style="width:150px;" onclick="freshmap()">恢复地图</a>
+	  		<a href="/mypaper/task/download" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" style="width:150px;">导出任务书</a>
 	  	</div>
   		<div style="width: 98%;height: 30%;margin-left: 5px;margin-top: 5px;">
   			<table id="goodtg" class="easyui-datagrid"></table>
