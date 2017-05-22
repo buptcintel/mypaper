@@ -43,4 +43,8 @@
 		WHERE pid = #{pid}
 	</update>
 	
+	<select id="findbypid" resultMap="LogparkResultMap">
+		select * from logpark where pid = #{pid}
+	</select>
+	
 </mapper>

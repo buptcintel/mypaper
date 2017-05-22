@@ -88,4 +88,18 @@ public class LogparkDaoImpl implements ILogparkDao {
 		}
 	}
 
+	@Override
+	public Logpark findbypid(String pid) {
+		SqlSession session = sessionFactory.openSession();
+		Logpark logpark = new Logpark();
+		try {
+			logpark = session.selectOne("logparkModule.findbypid", pid);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return logpark;
+	}
+
 }

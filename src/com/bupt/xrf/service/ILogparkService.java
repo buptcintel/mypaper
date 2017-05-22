@@ -10,4 +10,6 @@ public interface ILogparkService {
 
 	public void settotaluse(String pid);
 
+	public Map<String, Object> findbypid(String pid);
+
 }

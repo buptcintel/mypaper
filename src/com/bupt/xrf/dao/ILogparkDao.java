@@ -16,4 +16,6 @@ public interface ILogparkDao {
 
 	public void settotaluse(String pid);
 
+	public Logpark findbypid(String pid);
+
 }

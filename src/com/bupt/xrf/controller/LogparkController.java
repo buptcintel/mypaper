@@ -44,4 +44,12 @@ public class LogparkController {
 		return resultmap;
 	}
 	
+	@RequestMapping("/findbypid")
+	@ResponseBody
+	public Map<String, Object> findbypid(@RequestParam Map<String,Object> params){		
+		String pid = (String) params.get("pid");
+		
+		return logparkService.findbypid(pid);
+	}
+	
 }

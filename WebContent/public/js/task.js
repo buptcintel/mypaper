@@ -82,7 +82,7 @@ function initwhtable(){
 	            content = content + "<a href='javacript:void(0);' onclick='showwhinfo(" +data.all[i].wid+");'>查看详情</a>";
 	            content += "</div>";
 	            
-	            createMarker(point,content);
+	            createMarker(point,content,"wh");
 			}
 		}
 	});
@@ -126,11 +126,19 @@ function initlogtable(){
     });
 }
 
-function createMarker(point,content){
-	var myIcon = new BMap.Icon("/mypaper/img/warehouse_select.png", new BMap.Size(32, 32), {    //仓库
-		imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
-	  });
-	title = "仓储详细信息"
+function createMarker(point,content,type){
+	if(type == "wh"){
+		var myIcon = new BMap.Icon("/mypaper/img/warehouse_select.png", new BMap.Size(32, 32), {    //仓库
+			imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
+		  });
+		title = "仓储详细信息"
+	}
+	if(type == "lp"){
+		var myIcon = new BMap.Icon("/mypaper/img/logpark_select.png", new BMap.Size(32, 32), {    //仓库
+			imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
+		  });
+		title = "物流园区详细信息"
+	}
 	var opts = {
 			  width : 400,     // 信息窗口宽度
 			  height: 120,     // 信息窗口高度
@@ -223,10 +231,10 @@ function showwhmap(wid, wcoordinate){
             content = content + "详细地址：" + data.warehouse.location + "</br>"; 
             content = content + "联系人：" + data.warehouse.contact + "</br>"; 
             content = content + "联系方式：" + data.warehouse.number + "</br>"; 
-            content = content + "<a href='javacript:void(0);' onclick='showgoods("+data.warehouse.wid+");'>查看出救物资</a>";
+            content = content + "<a href='javacript:void(0);' onclick='showwhinfo("+data.warehouse.wid+");'>查看详细信息</a>";
             content += "</div>";
             
-            createMarker(point,content);
+            createMarker(point,content,"wh");
         },  
         error: function(data){  
             alert("系统异常，请刷新后重试...");  
@@ -247,10 +255,12 @@ function showwhmap(wid, wcoordinate){
 	            content = content + "联系人：" + data.all[i].logpark.p_master + "</br>"; 
 	            content = content + "联系方式：" + data.all[i].logpark.p_contact + "</br>"; 
 	            //只能查看该仓储已经确定的运输工具类型
-	            content = content + "<a href='javacript:void(0);' onclick=();'>查看详细信息</a>";
+	            content = content + "<a href='javacript:void(0);' onclick='showloginfo("+data.all[i].logpark.pid+");'>查看详细信息</a>";
 	            content += "</div>";
 	            
-	            createMarkerandDraw(wid, wcoordinate, content, pcoordinate, tool);
+	            var wcoor = wcoordinate.split(',');
+	            
+	            createMarkerandDraw(wid, wcoor, content, pcoordinate, tool, "wh");
         	}
         },  
         error: function(data){  
@@ -259,19 +269,33 @@ function showwhmap(wid, wcoordinate){
     });
 }
 
-function createMarkerandDraw(wid, wcoordinate, content, pcoordinate, tool){
-	console.log(tool);
-	var myIcon1 = new BMap.Icon("/mypaper/img/logpark_select.png", new BMap.Size(32, 32), {    //仓库
-		imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
-	  });
-	title = "物流园区详细信息"
+function createMarkerandDraw(wid, wcoordinate, content, pcoordinate, tool, type){
+	var myIcon1;
+	var title;
+	var point;
+	var point2;
+	if(type == 'wh'){
+		var myIcon1 = new BMap.Icon("/mypaper/img/logpark_select.png", new BMap.Size(32, 32), {    //仓库
+			imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
+		  });
+		title = "物流园区详细信息";
+		point = new BMap.Point(pcoordinate[0], pcoordinate[1]);
+		point2 = new BMap.Point(wcoordinate[0], wcoordinate[1]);	
+	}
+	if(type == "lp"){
+		var myIcon1 = new BMap.Icon("/mypaper/img/warehouse_select.png", new BMap.Size(32, 32), {    //仓库
+			imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
+		  });
+		title = "仓储详细信息";
+		point = new BMap.Point(wcoordinate[0], wcoordinate[1]);
+		point2 = new BMap.Point(pcoordinate[0], pcoordinate[1]);
+	}
+	
 	var opts = {
 			  width : 400,     // 信息窗口宽度
 			  height: 120,     // 信息窗口高度
 			  title : title 	// 信息窗口标题
 			}
-	
-	var point = new BMap.Point(pcoordinate[0], pcoordinate[1]);
 	
 	var pointMarker = new BMap.Marker(point, {icon:myIcon1});
 	map.addOverlay(pointMarker);
@@ -297,14 +321,13 @@ function createMarkerandDraw(wid, wcoordinate, content, pcoordinate, tool){
 			imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
 		  });
 	}
-	var wcoor = wcoordinate.split(",");
-	var lon = (Number(wcoor[0]) + Number(pcoordinate[0]))/2;
-	var lat = (Number(wcoor[1]) + Number(pcoordinate[1]))/2;
+	
+	var lon = (Number(wcoordinate[0]) + Number(pcoordinate[0]))/2;
+	var lat = (Number(wcoordinate[1]) + Number(pcoordinate[1]))/2;
 	var midpoint = new BMap.Point(lon, lat);
 	var toolMarker = new BMap.Marker(midpoint, {icon:myIcon2});
 	map.addOverlay(toolMarker);
 	
-	var point2 = new BMap.Point(wcoor[0], wcoor[1]);
 	var polyline = new BMap.Polyline([point,point2], {strokeColor:"blue", strokeWeight:6, strokeOpacity:0.5});  //定义折线
 	map.addOverlay(polyline);
 }
@@ -322,8 +345,59 @@ function showloginfo(pid){
 	$("#loginfo").window(options);
 }
 
-function showlogmap(){
+function showlogmap(pid, pcoordinate){
+	map.clearOverlays();
+	var result = pcoordinate.split(",");
+	var point = new BMap.Point(result[0], result[1]);
+	map.centerAndZoom(point, 14);
 	
+	$.ajax({  
+        type: "POST",  
+        url: "/mypaper/logpark/findbypid",
+        data: {"pid":pid},	//page和rows随意赋值，不影响  
+        success: function(data){  
+        	
+        	var content = "<div>";  
+            content = content + "名称：" + data.logpark.p_name +"</br>";  
+            content = content + "详细地址：" + data.logpark.p_location + "</br>"; 
+            content = content + "联系人：" + data.logpark.p_master + "</br>"; 
+            content = content + "联系方式：" + data.logpark.p_contact + "</br>"; 
+            content = content + "<a href='javacript:void(0);' onclick='showloginfo("+data.logpark.pid+");'>查看详细信息</a>";
+            content += "</div>";
+            
+            createMarker(point,content,"lp");
+        },  
+        error: function(data){  
+            alert("系统异常，请刷新后重试...");  
+        }  
+    });
+	
+	$.ajax({  
+        type: "POST",  
+        url: "/mypaper/whparkvehicle/findwhbypk",
+        data: {"pid":pid, "page":1, "rows":1000},	//page和rows随意赋值，不影响  
+        success: function(data){  
+        	for(var i = 0 ; i < data.all.length ; i++){
+	        	var wcoordinate = data.all[i].warehouse.coordinate;
+	        	
+	        	var content = "<div>";  
+	            content = content + "名称：" + data.all[i].warehouse.wname +"</br>";  
+	            content = content + "详细地址：" + data.all[i].warehouse.wlocation + "</br>"; 
+	            content = content + "联系人：" + data.all[i].warehouse.contact + "</br>"; 
+	            content = content + "联系方式：" + data.all[i].warehouse.number + "</br>"; 
+	            //只能查看该仓储已经确定的运输工具类型
+	            content = content + "<a href='javacript:void(0);' onclick=showwhinfo("+data.all[i].warehouse.wid+");'>查看详细信息</a>";
+	            content += "</div>";
+	            
+	            var wcoor = wcoordinate.split(',');
+	            
+	            createMarkerandDraw(data.all[i].warehouse.wid, wcoor, content, result, data.all[i].warehouse.tool,"lp");
+        	}
+        },  
+        error: function(data){  
+            alert("系统异常，请刷新后重试...");  
+        }  
+    });
 }
 
 function reset(){

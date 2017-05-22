@@ -36,4 +36,11 @@ public class LogparkServiceImpl implements ILogparkService {
 		logparkDao.settotaluse(pid);
 	}
 
+	@Override
+	public Map<String, Object> findbypid(String pid) {
+		Map<String, Object> result = new HashMap<>();
+		result.put("logpark", logparkDao.findbypid(pid));
+		return result;
+	}
+
 }
