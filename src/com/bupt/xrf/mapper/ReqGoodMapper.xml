@@ -25,11 +25,20 @@
 			on rg.rid = r.rid
 			LEFT JOIN good g
 			on rg.gid = g.gid
-			where rg.rid = '1'
+			where rg.rid = '201'
 	</select>
 	
 	<select id="countall" resultType="int">
-		select count(*) from requirement_good
+		select count(*) from requirement_good where rid = '201'
 	</select>
+	
+	<insert id="addreqgood" parameterType="java.util.Map">
+		insert into requirement_good(rgid,rid,gid,amount)  
+             values(#{rgid},#{rid},#{gid},#{amount})  
+	</insert>
+	
+	<delete id="emptyreqgood">
+		delete from requirement_good
+	</delete>
 	
 </mapper>

@@ -1,6 +1,7 @@
 package com.bupt.xrf.dao.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
@@ -59,6 +60,30 @@ public class ReqGoodDaoImpl implements IReqGoodDao {
 			session.close();
 		}
 		return result;
+	}
+
+	@Override
+	public void addreqgood(HashMap<String, Object> map) {
+		SqlSession session = sessionFactory.openSession();
+		try {
+			session.insert("reqgoodModule.addreqgood", map);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			session.close();
+		}
+	}
+
+	@Override
+	public void emptyreqgood() {
+		SqlSession session = sessionFactory.openSession();
+		try {
+			session.delete("reqgoodModule.emptyreqgood");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			session.close();
+		}
 	}
 
 }

@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bupt.xrf.dao.IGoodDao;
 import com.bupt.xrf.dao.IReqGoodDao;
 import com.bupt.xrf.entity.ReqGood;
 import com.bupt.xrf.service.IReqGoodService;
@@ -17,6 +18,9 @@ public class ReqGoodServiceImpl implements IReqGoodService {
 
 	@Autowired
 	private IReqGoodDao reqgoodDao;
+	
+	@Autowired
+	private IGoodDao goodDao;
 	
 	@Override
 	public Map<String, Object> findbypage(int page, int rows) {
@@ -45,6 +49,23 @@ public class ReqGoodServiceImpl implements IReqGoodService {
 	public List<ReqGood> findall() {
 		// TODO Auto-generated method stub
 		return reqgoodDao.findall();
+	}
+
+	@Override
+	public void addreqgood(HashMap<String, Object> rg) {
+		String gcode = (String)rg.get("gcode");
+		String gid = goodDao.findidbycode(gcode);
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("gid", gid);
+		map.put("rid", rg.get("rid"));
+		map.put("rgid", rg.get("rid")+gid);
+		map.put("amount", rg.get("amount"));
+		reqgoodDao.addreqgood(map);
+	}
+
+	@Override
+	public void emptyreqgood() {
+		reqgoodDao.emptyreqgood();
 	}
 	
 	

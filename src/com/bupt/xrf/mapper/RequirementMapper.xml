@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="reqModule">
+	<resultMap id="RequirementResultMap" type="com.bupt.xrf.entity.Requirement">
+		<id column="rid" property="rid" jdbcType="VARCHAR" />
+		<result column="batch" property="batch" jdbcType="VARCHAR" />
+		<result column="deadline" property="deadline" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<insert id="addreq" parameterType="com.bupt.xrf.entity.Requirement">
+		insert into requirement(rid,batch, deadline)  
+             values(#{rid},#{batch},#{deadline})  
+	</insert>
+	
+	<select id="exsit" resultType="int">
+		select count(*) from requirement where rid = #{rid}
+	</select>
+	
+	<delete id="emptyreq">
+		delete from requirement
+	</delete>
+	
+</mapper>
