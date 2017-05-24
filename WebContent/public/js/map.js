@@ -80,6 +80,7 @@ $(document).ready(function(){
 		},
 		
 		onLoadSuccess:function(data){
+			alert(data.mes);
 			var rowData = data.rows;  
             $.each(rowData,function(idx,val){//遍历JSON  
                   if(val.flag=='1'){  
@@ -168,7 +169,7 @@ function selectgoods(wid, wtype){
 }
 
 function reset(){
-	alert("reset");
+	window.location.href = "index.jsp";
 }
 
 function next(){

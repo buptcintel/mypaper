@@ -15,5 +15,7 @@ public interface IReqGoodService {
 	public void addreqgood(HashMap<String, Object> rg);
 
 	public void emptyreqgood();
+
+	public void setamount();
 	
 }

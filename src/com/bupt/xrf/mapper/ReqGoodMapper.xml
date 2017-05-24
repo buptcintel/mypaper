@@ -5,6 +5,7 @@
 	<resultMap id="ReqGoodResultMap" type="com.bupt.xrf.entity.ReqGood">
 		<id column="rgid" property="rgid" jdbcType="VARCHAR" />
 		<result column="amount" property="amount" jdbcType="INTEGER" />
+		<result column="totalamount" property="totalamount" jdbcType="INTEGER" />
 		<association property="good" javaType="com.bupt.xrf.entity.Good" column="gid">
 			<id column="gid" property="gid" jdbcType="VARCHAR" />
 			<result column="code" property="code" jdbcType="VARCHAR" />
@@ -33,12 +34,17 @@
 	</select>
 	
 	<insert id="addreqgood" parameterType="java.util.Map">
-		insert into requirement_good(rgid,rid,gid,amount)  
-             values(#{rgid},#{rid},#{gid},#{amount})  
+		insert into requirement_good(rgid,rid,gid,totalamount)  
+             values(#{rgid},#{rid},#{gid},#{totalamount})  
 	</insert>
 	
 	<delete id="emptyreqgood">
 		delete from requirement_good
 	</delete>
+	
+	<update id="setamount">
+		UPDATE requirement_good
+		SET amount = totalamount*0.8
+	</update>
 	
 </mapper>

@@ -104,7 +104,6 @@ public class LogparkDaoImpl implements ILogparkDao {
 
 	@Override
 	public void clearpark() {
-		System.out.println("asdasda");
 		SqlSession session = sessionFactory.openSession();	
 		try {
 			session.update("logparkModule.clearpark");

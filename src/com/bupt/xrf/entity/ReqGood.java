@@ -5,7 +5,8 @@ public class ReqGood {
 	private String rgid;
 	private Good good;
 	private Requirement requirement;
-	private String amount;
+	private int amount;
+	private int totalamount;
 	
 	public String getRgid() {
 		return rgid;
@@ -25,14 +26,21 @@ public class ReqGood {
 	public void setRequirement(Requirement requirement) {
 		this.requirement = requirement;
 	}
-	public String getAmount() {
+	public int getAmount() {
 		return amount;
 	}
-	public void setAmount(String amount) {
+	public void setAmount(int amount) {
 		this.amount = amount;
+	}
+	public int getTotalamount() {
+		return totalamount;
+	}
+	public void setTotalamount(int totalamount) {
+		this.totalamount = totalamount;
 	}
 	@Override
 	public String toString() {
-		return "ReqGood [rgid=" + rgid + ", good=" + good + ", requirement=" + requirement + ", amount=" + amount + "]";
+		return "ReqGood [rgid=" + rgid + ", good=" + good + ", requirement=" + requirement + ", amount=" + amount
+				+ ", totalamount=" + totalamount + "]";
 	}
 }

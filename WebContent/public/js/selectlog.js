@@ -292,7 +292,7 @@ function selectvehicle(pid, tool, wid){
 }
 
 function reset(){
-	window.location.href = "index.jsp"
+	window.location.href = "map.jsp"
 }
 
 function next(){

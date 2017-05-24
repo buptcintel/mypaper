@@ -86,4 +86,16 @@ public class ReqGoodDaoImpl implements IReqGoodDao {
 		}
 	}
 
+	@Override
+	public void setamount() {
+		SqlSession session = sessionFactory.openSession();
+		try {
+			session.delete("reqgoodModule.setamount");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			session.close();
+		}
+	}
+
 }

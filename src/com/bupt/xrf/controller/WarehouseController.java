@@ -37,6 +37,7 @@ public class WarehouseController {
 	@RequestMapping("/list")
 	@ResponseBody
 	public Map<String, Object> findbypage(@RequestParam Map<String,Object> params){	
+		String mes = "";
 		String plan = (String)params.get("plan");
 		List<WhGood> whGoods = whgoodService.findall();
 		List<Warehouse> warehouses = warehouseService.findall();
@@ -56,15 +57,15 @@ public class WarehouseController {
 		
 		if(plan.equals("0")){
 			Idealpoints idealpoints = new Idealpoints(warehouses, whGoods, reqGoods);
-			idealpoints.algorithmformintime();
+			mes = idealpoints.algorithmformintime();
 		}
 		else if(plan.equals("1")){
 			Idealpoints idealpoints = new Idealpoints(warehouses, whGoods, reqGoods);
-			idealpoints.algorithmformincost();
+			mes = idealpoints.algorithmformincost();
 		}
 		else{
 			Idealpoints idealpoints = new Idealpoints(warehouses, whGoods, reqGoods);
-			idealpoints.algorithmformintime();
+			mes = idealpoints.algorithmformintime();
 		}
 		
 		//将结果写入数据库
@@ -92,6 +93,7 @@ public class WarehouseController {
 		List<Warehouse> all = warehouseService.findall();
 		
 		resultmap.put("all", all);
+		resultmap.put("mes", mes);
 		
 		return resultmap;
 	}

@@ -36,6 +36,7 @@ public class ReqGoodServiceImpl implements IReqGoodService {
 			resulttmp.put("kind", tmp.getGood().getKind());
 			resulttmp.put("code", tmp.getGood().getCode());
 			resulttmp.put("amount", tmp.getAmount() + tmp.getGood().getUnit());
+			resulttmp.put("totalamount", tmp.getTotalamount() + tmp.getGood().getUnit());
 			resulttmp.put("deadline", tmp.getRequirement().getDeadline());
 			res.add(resulttmp);
 		}
@@ -59,13 +60,18 @@ public class ReqGoodServiceImpl implements IReqGoodService {
 		map.put("gid", gid);
 		map.put("rid", rg.get("rid"));
 		map.put("rgid", rg.get("rid")+gid);
-		map.put("amount", rg.get("amount"));
+		map.put("totalamount", rg.get("amount"));
 		reqgoodDao.addreqgood(map);
 	}
 
 	@Override
 	public void emptyreqgood() {
 		reqgoodDao.emptyreqgood();
+	}
+
+	@Override
+	public void setamount() {
+		reqgoodDao.setamount();
 	}
 	
 	

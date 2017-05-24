@@ -14,6 +14,7 @@ public class Idealpoints {
 	private DistanceUtil distanceUtil = new DistanceUtil();
 	private Sortwhbytimeasc sortwhbytimeasc = new Sortwhbytimeasc();
 	private Sortwhbycostasc sortwhbycostasc = new Sortwhbycostasc();
+	private String mes;
 	
 	private List<Warehouse> warehouses = null;
 	private List<WhGood> whGoods = null;
@@ -33,15 +34,17 @@ public class Idealpoints {
 		
 	}
 	
-	public void algorithmformintime() {
+	public String algorithmformintime() {
 		getMintimeorMinAndMaxcost("Tmin");
 		System.out.println(Tmin);
 		System.out.println(Cmin);
+		return mes;
 	}
-	public void algorithmformincost() {
+	public String algorithmformincost() {
 		getMintimeorMinAndMaxcost("Cmin");
 		System.out.println(Tmin);
 		System.out.println(Cmin);
+		return mes;
 	}
 	
 	
@@ -101,7 +104,6 @@ public class Idealpoints {
 			Collections.sort(newwh, sortwhbytimeasc);
 		if(type.equals("Cmin"))
 			Collections.sort(newwh, sortwhbycostasc);
-		List<String> result = new ArrayList<>();
 		List<ReqGood> curgoods = freshcurgoods();
 		int i = 0;
 		while(ifEnough(curgoods) == false){
@@ -110,16 +112,16 @@ public class Idealpoints {
 
 			for(int k = 0 ; k < reqGoods.size() ; k++){
 				ReqGood reqGood = reqGoods.get(k);
-				int needamount = Integer.valueOf(reqGood.getAmount());
+				int needamount = reqGood.getAmount();
 				int hasamount = findgoodbywh(wh, reqGood);
 				if (hasamount != 0) {
-					int curamount = Integer.valueOf(curgoods.get(k).getAmount());
+					int curamount = curgoods.get(k).getAmount();
 					if(curamount == needamount){
 						continue;
 					}
 					else{
 						int afteradd = Math.min(curamount+hasamount, needamount);
-						curgoods.get(k).setAmount(afteradd+"");
+						curgoods.get(k).setAmount(afteradd);
 						setgoodbywh(wh, reqGood, Math.min(hasamount, needamount-curamount));
 						flag = true;
 						Tmin = Math.max(wh.getTimetoarrive(), Tmin);
@@ -128,15 +130,20 @@ public class Idealpoints {
 			}
 			if(flag == false){
 				i++;
+				if(i == newwh.size()){
+					System.out.println("物资不够了");
+					mes = "物资不够了";
+					break;
+				}
 				continue;
 			}
 			else{
-				result.add(wh.getWid());
 				setwh(wh);
 				removeWh(newwh, wh.getWid());
 				i = 0;
 			}
 		}
+		mes = "调度完成";
 	}
 	
 	public double getMaxtime(){
@@ -160,7 +167,7 @@ public class Idealpoints {
 	
 	public boolean ifEnough(List<ReqGood> curgoods){
 		for(int i = 0 ; i < reqGoods.size() ; i++){
-			if(reqGoods.get(i).getAmount().equals(curgoods.get(i).getAmount()) == false)
+			if(reqGoods.get(i).getAmount() != curgoods.get(i).getAmount())
 				return false;
 		}
 		return true;
@@ -208,7 +215,7 @@ public class Idealpoints {
 			ReqGood tmp = new ReqGood();
 			tmp.setGood(reqGoods.get(i).getGood());
 			tmp.setRequirement(reqGoods.get(i).getRequirement());
-			tmp.setAmount("0");
+			tmp.setAmount(0);
 			curgoods.add(tmp);
 		}
 		return curgoods;

@@ -16,5 +16,7 @@ public interface IReqGoodDao {
 	public void addreqgood(HashMap<String, Object> map);
 
 	public void emptyreqgood();
+
+	public void setamount();
 	
 }

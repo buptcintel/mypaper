@@ -63,8 +63,16 @@ public class ReqGoodController {
 		}
 		
 		Map<String, Object> resultmap = new HashMap<>();
-		resultmap.put("yes", "yes");
 		
+		return resultmap;
+	}
+	
+	@RequestMapping("/adjustreqgood")
+	@ResponseBody
+	public Map<String, Object> adjustreqgood(@RequestParam Map<String,Object> params){	
+		reqGoodService.setamount();
+		
+		Map<String, Object> resultmap = new HashMap<>();
 		return resultmap;
 	}
 	
