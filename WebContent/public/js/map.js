@@ -2,6 +2,7 @@
  * 
  */
 var plan = 0;
+var mesflag = 0;
 $(document).ready(function(){	
 	alert("已经默认为您选择时间最短方案！");
 	
@@ -80,7 +81,10 @@ $(document).ready(function(){
 		},
 		
 		onLoadSuccess:function(data){
-			alert(data.mes);
+			if(mesflag == 0){
+				alert(data.mes);
+				mesflag = 1;
+			}
 			var rowData = data.rows;  
             $.each(rowData,function(idx,val){//遍历JSON  
                   if(val.flag=='1'){  
@@ -149,6 +153,7 @@ function chooseplan(){
         	plan = radio[i].value;
         }
     }
+    mesflag = 0;
     $('#selectwarehouse').datagrid("options").url = '/mypaper/warehouse/list?plan='+plan;  
     $('#selectwarehouse').datagrid('load');  
 }
