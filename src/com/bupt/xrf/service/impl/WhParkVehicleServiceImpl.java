@@ -121,5 +121,10 @@ public class WhParkVehicleServiceImpl implements IWhParkVehicleService {
 		// TODO Auto-generated method stub
 		return whParkVehicleDao.findallwhbypk(pid);
 	}
+
+	@Override
+	public void clearall() {
+		whParkVehicleDao.clearall();
+	}
 	
 }

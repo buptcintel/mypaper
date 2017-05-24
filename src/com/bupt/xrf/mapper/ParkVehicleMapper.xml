@@ -76,4 +76,9 @@
 		select count(*) from park_vehicle where pid = #{pid} and ifuse = '1';
 	</select>
 	
+	<update id="clearpkvh">
+		update park_vehicle
+		set ifuse = '0', useamount = 0, availableamount = vamount
+	</update>
+	
 </mapper>

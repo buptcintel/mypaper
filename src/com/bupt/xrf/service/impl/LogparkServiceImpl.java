@@ -43,4 +43,9 @@ public class LogparkServiceImpl implements ILogparkService {
 		return result;
 	}
 
+	@Override
+	public void clearpark() {
+		logparkDao.clearpark();
+	}
+
 }

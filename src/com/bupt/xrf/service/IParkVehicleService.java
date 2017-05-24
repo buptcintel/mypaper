@@ -12,4 +12,6 @@ public interface IParkVehicleService {
 
 	public Map<String, Object> findusedvehiclebypk(int page, int rows, String pid);
 
+	public void clearpkvh();
+
 }

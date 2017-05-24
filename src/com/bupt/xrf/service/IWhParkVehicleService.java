@@ -25,4 +25,6 @@ public interface IWhParkVehicleService {
 
 	public List<WhParkVehicle> findallwhbypk(String pid);
 
+	public void clearall();
+
 }

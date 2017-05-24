@@ -12,4 +12,6 @@ public interface ILogparkService {
 
 	public Map<String, Object> findbypid(String pid);
 
+	public void clearpark();
+
 }

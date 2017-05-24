@@ -47,4 +47,9 @@
 		select * from logpark where pid = #{pid}
 	</select>
 	
+	<update id="clearpark">
+		UPDATE logpark
+		SET totaluse = 0
+	</update>
+	
 </mapper>

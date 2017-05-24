@@ -18,4 +18,6 @@ public interface ILogparkDao {
 
 	public Logpark findbypid(String pid);
 
+	public void clearpark();
+
 }

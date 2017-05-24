@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bupt.xrf.service.ILogparkService;
+import com.bupt.xrf.service.IParkVehicleService;
+import com.bupt.xrf.service.IWhParkVehicleService;
 
 @Controller("logparkController")
 @RequestMapping("/logpark")
@@ -17,6 +19,12 @@ public class LogparkController {
 
 	@Autowired
 	private ILogparkService logparkService;
+	
+	@Autowired 
+	private IParkVehicleService parkVehicleService;
+	
+	@Autowired
+	private IWhParkVehicleService whParkVehicleService;
 	
 	@RequestMapping("/list")
 	@ResponseBody
@@ -51,5 +59,17 @@ public class LogparkController {
 		
 		return logparkService.findbypid(pid);
 	}
+	
+	@RequestMapping("/clearpark")
+	@ResponseBody
+	public Map<String, Object> clearpark(){		
+		logparkService.clearpark();
+		parkVehicleService.clearpkvh();
+		whParkVehicleService.clearall();
+		
+		Map<String, Object> resultmap = new HashMap<>();		
+		return resultmap;
+	}
+	
 	
 }

@@ -190,4 +190,16 @@ public class WhParkVehicleDaoImpl implements IWhParkVehicleDao {
 		return whParkVehicles;
 	}
 
+	@Override
+	public void clearall() {
+		SqlSession session = sessionFactory.openSession();	
+		try {
+			session.delete("whparkvehicleModule.clearall");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			session.close();
+		}
+	}
+
 }

@@ -100,4 +100,8 @@
 		select count(distinct(wid)) from warehouse_park_vehicle where pid = #{pid}
 	</select>
 	
+	<delete id="clearall">
+		delete from warehouse_park_vehicle
+	</delete>
+	
 </mapper>

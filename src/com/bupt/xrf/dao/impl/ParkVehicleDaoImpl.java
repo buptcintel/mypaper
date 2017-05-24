@@ -125,4 +125,16 @@ public class ParkVehicleDaoImpl implements IParkVehicleDao {
 		return result;
 	}
 
+	@Override
+	public void clearpkvh() {
+		SqlSession session = sessionFactory.openSession();	
+		try {
+			session.update("parkvehicleModule.clearpkvh");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			session.close();
+		}
+	}
+
 }

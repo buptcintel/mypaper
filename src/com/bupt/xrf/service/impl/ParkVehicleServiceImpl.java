@@ -110,4 +110,9 @@ public class ParkVehicleServiceImpl implements IParkVehicleService {
 		return result;
 	}
 
+	@Override
+	public void clearpkvh() {
+		parkVehicleDao.clearpkvh();
+	}
+
 }

@@ -21,4 +21,6 @@ public interface IParkVehicleDao {
 
 	public int countfindusedvehiclebypk(String pid);
 
+	public void clearpkvh();
+
 }
