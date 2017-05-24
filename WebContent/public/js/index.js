@@ -16,11 +16,10 @@ $(document).ready(function(){
 		singleSelect:false,
 		loadMsg:'数据加载中......',
 		columns:[[
-		{field:'gname',title:'物资名称',width:'17%',align:'center'},
+		{field:'gname',title:'物资名称',width:'20%',align:'center'},
 		{field:'code',title:'物资编号',width:'20%',align:'center'},
 		{field:'kind',title:'物资类型',width:'20%',align:'center'},
-		{field:'totalamount',title:'总数量',width:'18%',align:'center'},
-		{field:'amount',title:'剩余数量',width:'18%',align:'center'}
+		{field:'totalamount',title:'总数量',width:'20%',align:'center'},
 		]],
 	});
 	

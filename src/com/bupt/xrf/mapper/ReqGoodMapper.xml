@@ -34,8 +34,8 @@
 	</select>
 	
 	<insert id="addreqgood" parameterType="java.util.Map">
-		insert into requirement_good(rgid,rid,gid,totalamount)  
-             values(#{rgid},#{rid},#{gid},#{totalamount})  
+		insert into requirement_good(rgid,rid,gid,amount,totalamount)  
+             values(#{rgid},#{rid},#{gid},#{totalamount},#{totalamount})  
 	</insert>
 	
 	<delete id="emptyreqgood">
