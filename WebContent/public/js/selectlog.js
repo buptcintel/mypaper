@@ -23,9 +23,9 @@ function initwhtable(){
 		singleSelect:false,
 		loadMsg:'数据加载中......',
 		columns:[[
-		{field:'wname',title:'仓储名称',width:'62%',align:'center'},
-		//{field:'type',title:'类型',width:'20%',align:'center'},
-		{field:'select',title: '选择物流',align: 'center',width:'17%',  
+		{field:'wname',title:'仓储名称',width:'45%',align:'center'},
+		{field:'needpower',title:'需要运力(kg)',width:'21%',align:'center'},
+		{field:'select',title: '选择物流',align: 'center',width:'15%',  
             //添加超级链 
             formatter:function(value,rowData,rowIndex){
                 //function里面的三个参数代表当前字段值，当前行数据对象，行号（行号从0开始
@@ -34,7 +34,7 @@ function initwhtable(){
                 				"选择</a>";
            }  
         },
-		{field:'detail',title: '出救物资',align: 'center',width:'17%',  
+		{field:'detail',title: '出救物资',align: 'center',width:'15%',  
             //添加超级链 
             formatter:function(value,rowData,rowIndex){
                 //function里面的三个参数代表当前字段值，当前行数据对象，行号（行号从0开始
