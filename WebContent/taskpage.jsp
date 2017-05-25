@@ -28,8 +28,11 @@
   		<div style="width: 98%;height: 30%;margin-left: 5px;margin-top: 5px;">
   			<table id="warehousetg" class="easyui-datagrid"></table>
   		</div>
-  		<div style="width: 98%;height: 32%;margin-left: 5px;margin-top: 5px;">
+  		<div style="width: 98%;height: 25%;margin-left: 5px;margin-top: 5px;">
   			<table id="logistictg" class="easyui-datagrid"></table>
+  		</div>
+  		<div style="width: 98%;height: 5%;margin-left: 5px;margin-top: 5px;">
+  			<span id="total" style="color: red; font-size: 16;"></span>
   		</div>
   	</div>
   	<div region="south" style="height:5%;">

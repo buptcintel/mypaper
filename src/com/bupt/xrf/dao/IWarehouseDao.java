@@ -22,5 +22,9 @@ public interface IWarehouseDao {
 	public Warehouse findbywid(String wid);
 
 	public List<Warehouse> selectedallwh();
+
+	public double gettasktime();
+
+	public double gettaskcost();
 	
 }

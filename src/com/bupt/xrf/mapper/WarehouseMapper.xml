@@ -68,7 +68,11 @@
     	where wid = #{wid}
 	</update>
 	
-	<select id="findbywid" resultMap="WarehouseResultMap">
-		select * from warehouse where wid = #{wid}
+	<select id="gettaskcost" resultType="double">
+		select sum(needpower*totalunitcost) from warehouse
+	</select>
+	
+	<select id="gettasktime" resultType="double">
+		select max(timetoarrive) from warehouse
 	</select>
 </mapper>

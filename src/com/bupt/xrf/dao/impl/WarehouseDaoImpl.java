@@ -132,4 +132,32 @@ public class WarehouseDaoImpl implements IWarehouseDao {
 		return warehouses;
 	}
 
+	@Override
+	public double gettasktime() {
+		SqlSession session = sessionFactory.openSession();
+		double result = 0;
+		try {
+			result = session.selectOne("warehouseModule.gettasktime");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return result;
+	}
+
+	@Override
+	public double gettaskcost() {
+		SqlSession session = sessionFactory.openSession();
+		double result = 0;
+		try {
+			result = session.selectOne("warehouseModule.gettaskcost");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return result;
+	}
+
 }

@@ -2,6 +2,17 @@
  * 
  */
 $(document).ready(function(){	
+	$.ajax({  
+        type: "GET",  
+        url: "/mypaper/task/gettasktimeandcost", 
+        data: {"wid":staticwid},  
+        success: function(data){
+        	document.getElementById("total").innerText = "本次救援时间为"+data.time+"分钟，救援成本为"+data.cost+"元";
+        },  
+        error: function(json){  
+            alert("系统异常，请刷新后重试...");  
+        }  
+    });
 	initgoodtable();
 	initwhtable();
     initlogtable();
@@ -97,8 +108,8 @@ function initlogtable(){
 	$('#logistictg').datagrid({
 		url:'/mypaper/logpark/selectedpk',
 		title:'出救物流园区表',
-		pageSize: 5,  
-        pageList: [5, 10, 15],  
+		pageSize: 3,  
+        pageList: [3, 6, 9],  
         height: '100%',
 		iconCls:'icon-save',
 		striped:true,
