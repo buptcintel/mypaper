@@ -429,5 +429,12 @@ function reset(){
 }
 
 function next(){
-	alert("下发任务");
+	if(window.confirm('确定下发任务？')){
+		window.location.href = "http://192.168.5.116:8080/preproject/backstage/emergency/index";
+	    return true;
+    }
+	else{
+		$('#goodstable').datagrid('reload');
+        return false;
+    }
 }
