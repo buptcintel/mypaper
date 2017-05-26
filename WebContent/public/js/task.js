@@ -430,7 +430,7 @@ function reset(){
 
 function next(){
 	if(window.confirm('确定下发任务？')){
-		window.location.href = "http://192.168.5.116:8080/preproject/backstage/emergency/index";
+		window.location.href = "http://192.168.5.116:8080/preproject/backstage/emergency/live";
 	    return true;
     }
 	else{

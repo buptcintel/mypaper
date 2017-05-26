@@ -68,6 +68,10 @@
     	where wid = #{wid}
 	</update>
 	
+	<select id="findbywid" resultMap="WarehouseResultMap">
+		select * from warehouse where wid = #{wid}
+	</select>
+	
 	<select id="gettaskcost" resultType="double">
 		select sum(needpower*totalunitcost) from warehouse
 	</select>
