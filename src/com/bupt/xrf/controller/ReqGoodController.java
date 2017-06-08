@@ -36,6 +36,19 @@ public class ReqGoodController {
 		return resultmap;
 	}
 	
+	@RequestMapping("/findbyrid")
+	@ResponseBody
+	public Map<String, Object> findbyrid(@RequestParam Map<String,Object> params){		
+		String page = (String) params.get("page");
+		String rows = (String) params.get("rows");
+		String rid = (String) params.get("rid");
+		
+		Map<String, Object> resultmap = new HashMap<>();
+		resultmap = reqGoodService.findbyrid(Integer.valueOf(page), Integer.valueOf(rows), rid);
+		
+		return resultmap;
+	}
+	
 	@RequestMapping("/receivereq")
 	@ResponseBody
 	public Map<String, Object> receivereq(@RequestParam Map<String,Object> params){	

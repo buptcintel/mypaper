@@ -15,13 +15,17 @@
   	  	</div>
 	</div>
 	<div region="center" style="height: 90%; margin-top: 5px;">
-  	  	<div style="width: 80%; height: 45%; margin: 5px auto;">
+		<div style="width: 80%; height: 5%; margin: 5px auto;">
+  	  		请选择批次：<input id="batch" name="batch">
+  	  		请选择截止时间：<input id="deadline" name="deadline">
+  	  	</div>
+  	  	<div style="width: 80%; height: 40%; margin: 5px auto;">
   	  		<table id="reqgoodtable" class="easyui-datagrid"></table>
   	  	</div>
-  	  	<div style="height: 5%; margin-top: 5px;" align="center">
+  	  	<div id="distribute" style="height: 5%; margin-top: 5px; display: none;" align="center">
   	  		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" style="width:150px" onclick="distribute()">下发任务</a>
   	  	</div>
-  	  	<div id="newtb" style="width: 80%; height: 45%; margin: 5px auto; display: none;">
+  	  	<div id="newtb" style="width: 80%; height: 40%; margin: 5px auto; display: none;">
   	  		<table id="newreqgoodtable" class="easyui-datagrid"></table>
   	  	</div>
   	</div>

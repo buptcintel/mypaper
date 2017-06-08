@@ -37,7 +37,8 @@ public class ReqGoodServiceImpl implements IReqGoodService {
 			resulttmp.put("code", tmp.getGood().getCode());
 			resulttmp.put("amount", tmp.getAmount() + tmp.getGood().getUnit());
 			resulttmp.put("totalamount", tmp.getTotalamount() + tmp.getGood().getUnit());
-			resulttmp.put("deadline", tmp.getRequirement().getDeadline());
+			resulttmp.put("deadline", tmp.getRequirement().getDeadline()+"小时");
+			resulttmp.put("batch", "第" + tmp.getRequirement().getBatch() +"批次");
 			res.add(resulttmp);
 		}
 		
@@ -72,6 +73,30 @@ public class ReqGoodServiceImpl implements IReqGoodService {
 	@Override
 	public void setamount() {
 		reqgoodDao.setamount();
+	}
+
+	@Override
+	public Map<String, Object> findbyrid(int page, int rows, String rid) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		List<Map<String, Object>> res = new ArrayList<Map<String, Object>>();
+		List<ReqGood> reqGoods = reqgoodDao.findbyrid(page, rows, rid);
+		for (ReqGood tmp : reqGoods) {
+
+			Map<String, Object> resulttmp = new HashMap<String, Object>();
+			resulttmp.put("gid", tmp.getGood().getGid());
+			resulttmp.put("gname", tmp.getGood().getGname());
+			resulttmp.put("kind", tmp.getGood().getKind());
+			resulttmp.put("code", tmp.getGood().getCode());
+			resulttmp.put("amount", tmp.getAmount() + tmp.getGood().getUnit());
+			resulttmp.put("totalamount", tmp.getTotalamount() + tmp.getGood().getUnit());
+			resulttmp.put("deadline", tmp.getRequirement().getDeadline()+"小时");
+			resulttmp.put("batch", "第" + tmp.getRequirement().getBatch() +"批次");
+			res.add(resulttmp);
+		}
+		
+		result.put("total", reqgoodDao.countallbyrid(rid));
+		result.put("rows", res);
+		return result;
 	}
 	
 	

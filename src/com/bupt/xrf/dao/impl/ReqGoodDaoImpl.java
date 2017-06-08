@@ -98,4 +98,33 @@ public class ReqGoodDaoImpl implements IReqGoodDao {
 		}
 	}
 
+	@Override
+	public List<ReqGood> findbyrid(int page, int rows, String rid) {
+		SqlSession session = sessionFactory.openSession();
+		List<ReqGood> reqGoods = new ArrayList<>();
+		RowBounds rowBounds = new RowBounds((page-1)*rows, rows);
+		try {
+			reqGoods = session.selectList("reqgoodModule.findbyrid", rid, rowBounds);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return reqGoods;
+	}
+
+	@Override
+	public int countallbyrid(String rid) {
+		SqlSession session = sessionFactory.openSession();
+		int result = 0;
+		try {
+			result = session.selectOne("reqgoodModule.countallbyrid", rid);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return result;
+	}
+
 }

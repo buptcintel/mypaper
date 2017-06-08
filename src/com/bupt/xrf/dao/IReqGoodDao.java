@@ -18,5 +18,9 @@ public interface IReqGoodDao {
 	public void emptyreqgood();
 
 	public void setamount();
+
+	public List<ReqGood> findbyrid(int page, int rows, String rid);
+
+	public int countallbyrid(String rid);
 	
 }

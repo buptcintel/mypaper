@@ -1,5 +1,8 @@
 package com.bupt.xrf.dao.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +53,34 @@ public class RequirementDaoImpl implements IRequirementDao {
 		} finally {
 			session.close();
 		}
+	}
+
+	@Override
+	public List<Requirement> getallbatch() {
+		SqlSession session = sessionFactory.openSession();
+		List<Requirement> result = new ArrayList<>();
+		try {
+			result = session.selectList("reqModule.getallbatch");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return result;
+	}
+
+	@Override
+	public List<Requirement> getddlbybatch(String batch) {
+		SqlSession session = sessionFactory.openSession();
+		List<Requirement> result = new ArrayList<>();
+		try {
+			result = session.selectList("reqModule.getddlbybatch", batch);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return result;
 	}
 
 }

@@ -26,11 +26,10 @@
 			on rg.rid = r.rid
 			LEFT JOIN good g
 			on rg.gid = g.gid
-			where rg.rid = '201'
 	</select>
 	
 	<select id="countall" resultType="int">
-		select count(*) from requirement_good where rid = '201'
+		select count(*) from requirement_good
 	</select>
 	
 	<insert id="addreqgood" parameterType="java.util.Map">
@@ -46,5 +45,17 @@
 		UPDATE requirement_good
 		SET amount = totalamount*0.8
 	</update>
+	
+	<select id="findbyrid" resultMap="ReqGoodResultMap">
+		select * from requirement_good rg LEFT JOIN requirement r
+			on rg.rid = r.rid
+			LEFT JOIN good g
+			on rg.gid = g.gid
+			where rg.rid = #{rid}
+	</select>
+	
+	<select id="countallbyrid" resultType="int">
+		select count(*) from requirement_good where rid = #{rid}
+	</select>
 	
 </mapper>

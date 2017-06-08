@@ -17,5 +17,7 @@ public interface IReqGoodService {
 	public void emptyreqgood();
 
 	public void setamount();
+
+	public Map<String, Object> findbyrid(int page, int rows, String rid);
 	
 }

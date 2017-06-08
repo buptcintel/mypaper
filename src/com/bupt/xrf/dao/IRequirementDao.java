@@ -1,5 +1,7 @@
 package com.bupt.xrf.dao;
 
+import java.util.List;
+
 import com.bupt.xrf.entity.Requirement;
 
 public interface IRequirementDao {
@@ -9,5 +11,9 @@ public interface IRequirementDao {
 	public int exsit(String rid);
 
 	public void emptyreq();
+
+	public List<Requirement> getallbatch();
+
+	public List<Requirement> getddlbybatch(String batch);
 
 }

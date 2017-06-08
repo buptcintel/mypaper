@@ -21,4 +21,12 @@
 		delete from requirement
 	</delete>
 	
+	<select id="getallbatch" resultMap="RequirementResultMap">
+		select * from requirement GROUP BY batch
+	</select>
+	
+	<select id="getddlbybatch" resultMap="RequirementResultMap">
+		select * from requirement where batch = #{batch}
+	</select>
+	
 </mapper>
