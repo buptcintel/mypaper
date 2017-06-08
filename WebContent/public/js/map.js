@@ -8,7 +8,7 @@ $(document).ready(function(){
 	
 	//初始化物资表
 	$('#needgoods').datagrid({
-		url:'/mypaper/reqgood/list',
+		url:'/mypaper/reqgood/findbyrid',
 		title:'物资需求表',
 		pageSize: 8,  
         pageList: [8, 16, 24],  

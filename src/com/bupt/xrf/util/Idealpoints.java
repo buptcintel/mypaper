@@ -133,7 +133,7 @@ public class Idealpoints {
 				if(i == newwh.size()){
 					System.out.println("物资不够了");
 					mes = "物资不够了";
-					break;
+					return;
 				}
 				continue;
 			}

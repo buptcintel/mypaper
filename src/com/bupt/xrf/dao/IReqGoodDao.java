@@ -11,7 +11,7 @@ public interface IReqGoodDao {
 	
 	public int countall();
 
-	public List<ReqGood> findall();
+	//public List<ReqGood> findall();
 
 	public void addreqgood(HashMap<String, Object> map);
 
@@ -22,5 +22,7 @@ public interface IReqGoodDao {
 	public List<ReqGood> findbyrid(int page, int rows, String rid);
 
 	public int countallbyrid(String rid);
+
+	public List<ReqGood> findallbyrid(String rid);
 	
 }

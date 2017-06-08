@@ -47,11 +47,11 @@ public class ReqGoodServiceImpl implements IReqGoodService {
 		return result;
 	}
 
-	@Override
-	public List<ReqGood> findall() {
-		// TODO Auto-generated method stub
-		return reqgoodDao.findall();
-	}
+//	@Override
+//	public List<ReqGood> findall() {
+//		// TODO Auto-generated method stub
+//		return reqgoodDao.findall();
+//	}
 
 	@Override
 	public void addreqgood(HashMap<String, Object> rg) {
@@ -97,6 +97,12 @@ public class ReqGoodServiceImpl implements IReqGoodService {
 		result.put("total", reqgoodDao.countallbyrid(rid));
 		result.put("rows", res);
 		return result;
+	}
+
+	@Override
+	public List<ReqGood> findallbyrid(String rid) {
+		// TODO Auto-generated method stub
+		return reqgoodDao.findallbyrid(rid);
 	}
 	
 	

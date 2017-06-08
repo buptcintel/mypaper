@@ -10,7 +10,7 @@ public interface IReqGoodService {
 
 	public Map<String, Object> findbypage(int page, int rows);
 	
-	public List<ReqGood> findall();
+	//public List<ReqGood> findall();
 
 	public void addreqgood(HashMap<String, Object> rg);
 
@@ -19,5 +19,7 @@ public interface IReqGoodService {
 	public void setamount();
 
 	public Map<String, Object> findbyrid(int page, int rows, String rid);
+
+	public List<ReqGood> findallbyrid(String rid);
 	
 }

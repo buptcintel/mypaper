@@ -34,19 +34,19 @@ public class ReqGoodDaoImpl implements IReqGoodDao {
 		return reqGoods;
 	}
 	
-	@Override
-	public List<ReqGood> findall() {
-		SqlSession session = sessionFactory.openSession();
-		List<ReqGood> reqGoods = new ArrayList<>();
-		try {
-			reqGoods = session.selectList("reqgoodModule.findbypage");
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		} finally {
-			session.close();
-		}
-		return reqGoods;
-	}
+//	@Override
+//	public List<ReqGood> findall() {
+//		SqlSession session = sessionFactory.openSession();
+//		List<ReqGood> reqGoods = new ArrayList<>();
+//		try {
+//			reqGoods = session.selectList("reqgoodModule.findbypage");
+//		} catch (Exception e) {
+//			System.out.println(e.getMessage());
+//		} finally {
+//			session.close();
+//		}
+//		return reqGoods;
+//	}
 
 	@Override
 	public int countall() {
@@ -125,6 +125,20 @@ public class ReqGoodDaoImpl implements IReqGoodDao {
 			session.close();
 		}
 		return result;
+	}
+	
+	@Override
+	public List<ReqGood> findallbyrid(String rid) {
+		SqlSession session = sessionFactory.openSession();
+		List<ReqGood> reqGoods = new ArrayList<>();
+		try {
+			reqGoods = session.selectList("reqgoodModule.findbyrid", rid);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return reqGoods;
 	}
 
 }

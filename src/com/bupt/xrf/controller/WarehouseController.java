@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,12 +38,13 @@ public class WarehouseController {
 	
 	@RequestMapping("/list")
 	@ResponseBody
-	public Map<String, Object> findbypage(@RequestParam Map<String,Object> params){	
+	public Map<String, Object> findbypage(@RequestParam Map<String,Object> params, HttpSession session){	
 		String mes = "";
+		String rid = session.getAttribute("rid")+"";
 		String plan = (String)params.get("plan");
 		List<WhGood> whGoods = whgoodService.findall();
 		List<Warehouse> warehouses = warehouseService.findall();
-		List<ReqGood> reqGoods = reqGoodService.findall();
+		List<ReqGood> reqGoods = reqGoodService.findallbyrid(rid);
 		
 		//初始化数据库
 		for (WhGood tmp : whGoods) {

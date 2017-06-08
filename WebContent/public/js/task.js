@@ -20,7 +20,7 @@ $(document).ready(function(){
 
 function initgoodtable(){
 	$('#goodtg').datagrid({
-		url:'/mypaper/reqgood/list',
+		url:'/mypaper/reqgood/findbyrid',
 		title:'出救物资表',
 		pageSize: 4,  
         pageList: [4, 8, 12],  

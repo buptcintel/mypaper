@@ -3,6 +3,8 @@ package com.bupt.xrf.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,10 +40,11 @@ public class ReqGoodController {
 	
 	@RequestMapping("/findbyrid")
 	@ResponseBody
-	public Map<String, Object> findbyrid(@RequestParam Map<String,Object> params){		
+	public Map<String, Object> findbyrid(@RequestParam Map<String,Object> params, HttpSession session){		
 		String page = (String) params.get("page");
 		String rows = (String) params.get("rows");
-		String rid = (String) params.get("rid");
+		String rid = session.getAttribute("rid")+"";
+		System.out.println(rid);
 		
 		Map<String, Object> resultmap = new HashMap<>();
 		resultmap = reqGoodService.findbyrid(Integer.valueOf(page), Integer.valueOf(rows), rid);
